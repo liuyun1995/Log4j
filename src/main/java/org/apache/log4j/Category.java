@@ -1,34 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
-// Contibutors: Alex Blewitt <Alex.Blewitt@ioshq.com>
-//              Markus Oestreicher <oes@zurich.ibm.com>
-//              Frank Hoering <fhr@zurich.ibm.com>
-//              Nelson Minar <nelson@media.mit.edu>
-//              Jim Cakalic <jim_cakalic@na.biomerieux.com>
-//              Avy Sharell <asharell@club-internet.fr>
-//              Ciaran Treanor <ciaran@xelector.com>
-//              Jeff Turner <jeff@socialchange.net.au>
-//              Michael Horwitz <MHorwitz@siemens.co.za>
-//              Calvin Chan <calvin.chan@hic.gov.au>
-//              Aaron Greenhouse <aarong@cs.cmu.edu>
-//              Beat Meier <bmeier@infovia.com.ar>
-//              Colin Sampaleanu <colinml1@exis.com>
-
 package org.apache.log4j;
 
 import org.apache.log4j.spi.AppenderAttachable;
@@ -93,8 +62,7 @@ public class Category implements AppenderAttachable {
   */
   //static
   //public
-  //final Hierarchy defaultHierarchy = new Hierarchy(new
-  //					   RootCategory(Level.DEBUG));
+  //final Hierarchy defaultHierarchy = new Hierarchy(new RootCategory(Level.DEBUG));
 
   /**
      The name of this category.
@@ -154,8 +122,7 @@ public class Category implements AppenderAttachable {
      <p>If <code>newAppender</code> is already in the list of
      appenders, then it won't be added again.
   */
-  synchronized
-  public void addAppender(Appender newAppender) {
+  synchronized public void addAppender(Appender newAppender) {
     if(aai == null) {
       aai = new AppenderAttachableImpl();
     }
@@ -218,8 +185,7 @@ public class Category implements AppenderAttachable {
      interface.
      @since 1.0
   */
-  synchronized
-  void closeNestedAppenders() {
+  synchronized void closeNestedAppenders() {
 	    Enumeration enumeration = this.getAllAppenders();
 	    if(enumeration != null) {
 	      while(enumeration.hasMoreElements()) {

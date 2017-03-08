@@ -21,6 +21,7 @@ output
 # test/webapp-3.0-virtual-webapp use it:
 # target
 work
+workspace.xml
 build.properties
 mvn.properties
 .checkstyle

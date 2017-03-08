@@ -1,0 +1,30 @@
+ http://www.cnblogs.com/E-star/p/6082804.html
+
+ http://www.codeceo.com/article/log4j-usage.html 
+
+1. Log4j核心类
+     核心抽象：
+    Logger 用于对日志记录行为的抽象，提供记录不同级别日志的统一接口；
+    Level对日志级别的抽象；
+    Appender是对记录日志形式的抽象，标示了日志打印的目的地；
+    Layout是对日志行格式的抽象；
+    LoggingEvent是对一次日志记录过程中所需要的信息的抽象,可以理解成一个上下文；
+　　整个日志打印的过程可以理解为Loger拿着LoggingEvent去找Appender， 让Appender按照Layout的形式将日志打印到指定的位置。 而Level起的啥作用呢？
+Logger和Appender都是有原则的不能说你让我打印我就打印，必须满足我的规则我才给你打印，这里的规则就是指Level（出来混都是要讲原则的）。
+见图111
+2. 初始化过程
+　　核心逻辑在LogManager的静态代码块，根据配置信息解析初始化Logger，Appender和Layout等核心组件；见图222
+3. 日志打印　　
+　　核心的日志打印流程， 中间还有很多控制的细节，具体可以看源代码： 见图333
+
+
+4. 日志控制
+　　回到我们的出发点，如何实现： 
+　　将小于等于info的日志打印到app-service.log,将error打印到common-error.log, 将warn打印到common-warn.log。
+
+1. 重写Appender中2.5.2的方法（isAsSevereAsThreshold），自定义三个Appender的类，Appender1判断满足小于等于info的LoggingEvent才进行打印，目标指定为app-service.log；Appender2判断满足等于warn的LoggingEvent才进行打印,目标指定为common-warn.log；Appender3判断满足等于error的LoggingEvent才进行打印，目标指定为common-error.log；这样能够满足我们的需求，但是这样就会存两个问题
+ 存在一个潜规则就是：开发在配置的时候必须要使用自定义的Appender才可以满足，如果某同学使用默认的话，就可能存在日志打印错乱，影响监控；
+ 如果某个开发在Logger配置的时候忘记指定error的Appender，那么error日志将不会打印，存在日志丢失，风险很大；
+2. 添加2.5.3中提到的Filter配置，进行Appender过滤。log4j支持DenyAllFilter，LevelMatchFilter，LevelRangeFilter，StringMatchFilter的配置。通过LevelRangeFilter可以指定该Appender支持的日志范围。该方案解决了上个方案a存在的问题，但是无法解决b可能存在的问题；
+3. 重写Logger的日志打印的方法，在遍历Appender执行的时候，首先筛选出Level匹配（这里只相等）的Appender进行打印，如果没有匹配的Appender，再按照默认的策略进行打印。这样可以通过设置Appender的threshold即可实现，而且还可以防止Appender漏配置导致的日志缺失问题。该方案既可以兼容日志丢失，又可以满足我们的需求，但是logger对象中的AppenderAttachableImpl存储Appdender的List ，Logger中直接存放的是实现类，没有提供可扩展的方式，好像不太好实现。 求大神指点。 
+      目前项目中使用的方案为2， 同时app-service.log的Appender不配置Filter默认接受error和warn的日志， 但是warn和error通过Fileter进行区分不会相互影响，这样可以满足业务监控warn和error日志的需求，不需要修改任何代码，同时满足不会丢失日志的问题。但是存在error和warn日志重复打印的问题。 
