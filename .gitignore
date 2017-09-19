@@ -36,3 +36,4 @@ mvn.properties
 *.tmp
 bin/setenv.*
 /target/
+.idea
