@@ -40,7 +40,7 @@ import com.jd.log4j.helpers.FileWatchdog;
 import com.jd.log4j.helpers.LogLog;
 import com.jd.log4j.helpers.OptionConverter;
 import com.jd.log4j.or.ObjectRenderer;
-import com.jd.log4j.xml.DOMConfigurator;
+import com.jd.log4j.xml.DomConfigurator;
 import com.jd.log4j.or.RendererMap;
 import com.jd.log4j.spi.Configurator;
 import com.jd.log4j.spi.Filter;
@@ -69,7 +69,7 @@ import com.jd.log4j.spi.ErrorHandler;
 
    <p>The <code>PropertyConfigurator</code> does not handle the
    advanced configuration features supported by the {@link
-DOMConfigurator DOMConfigurator} such as
+DomConfigurator DomConfigurator} such as
    support custom {@link ErrorHandler ErrorHandlers},
    nested appenders such as the {@link AsyncAppender
    AsyncAppender}, etc.

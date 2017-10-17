@@ -20,7 +20,7 @@ package com.jd.log4j.net;
 import com.jd.log4j.Logger;
 import com.jd.log4j.PropertyConfigurator;
 import com.jd.log4j.spi.LoggingEvent;
-import com.jd.log4j.xml.DOMConfigurator;
+import com.jd.log4j.xml.DomConfigurator;
 
 import javax.jms.JMSException;
 import javax.jms.ObjectMessage;
@@ -62,7 +62,7 @@ public class JMSSink implements javax.jms.MessageListener {
     String configFile = args[4];
 
     if(configFile.endsWith(".xml")) {
-      DOMConfigurator.configure(configFile);
+      DomConfigurator.configure(configFile);
     } else {
       PropertyConfigurator.configure(configFile);
     }

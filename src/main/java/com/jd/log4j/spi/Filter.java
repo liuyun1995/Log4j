@@ -21,7 +21,7 @@ package com.jd.log4j.spi;
 import com.jd.log4j.AppenderSkeleton;
 import com.jd.log4j.Category;
 import com.jd.log4j.PropertyConfigurator;
-import com.jd.log4j.xml.DOMConfigurator;
+import com.jd.log4j.xml.DomConfigurator;
 
 /**
    Users should extend this class to implement customized logging
@@ -56,7 +56,7 @@ AppenderSkeleton}, the parent class of all standard
    Linux ipchains. 
 
    <p>Note that filtering is only supported by the {@link
-DOMConfigurator DOMConfigurator}. The {@link
+DomConfigurator DomConfigurator}. The {@link
 PropertyConfigurator PropertyConfigurator} does not
    support filters.
 

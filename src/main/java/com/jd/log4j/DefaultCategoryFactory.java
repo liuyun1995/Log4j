@@ -19,13 +19,13 @@ package com.jd.log4j;
 
 import com.jd.log4j.spi.LoggerFactory;
 
-class DefaultCategoryFactory implements LoggerFactory {
-    
-  DefaultCategoryFactory() {
-  }    
-    
-  public
-  Logger makeNewLoggerInstance(String name) {
-    return new Logger(name);
-  }    
+public class DefaultCategoryFactory implements LoggerFactory {
+
+	DefaultCategoryFactory() {
+	}
+
+	@Override
+	public Logger makeNewLoggerInstance(String name) {
+		return new Logger(name);
+	}
 }

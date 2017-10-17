@@ -47,7 +47,7 @@ import com.jd.log4j.spi.LoggingEvent;
  * </p>
  * <p/>
  * <b>Important note:</b> The <code>AsyncAppender</code> can only be script
- * configured using the {@link com.jd.log4j.xml.DOMConfigurator}.
+ * configured using the {@link com.jd.log4j.xml.DomConfigurator}.
  * </p>
  *
  * @author Ceki G&uuml;lc&uuml;

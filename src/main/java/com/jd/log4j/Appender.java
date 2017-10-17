@@ -15,11 +15,8 @@ import com.jd.log4j.spi.ErrorHandler;
 public interface Appender {
 
 	/**
-	 * @param newFilter
-	 * @author 张明明
-	 * @date 2016年5月8日 下午7:48:55
-	 * @Description:Add a filter to the end of the filter list.
-	 * 在过滤器列表结尾加一个过滤器。
+	 * 在过滤器列表结尾加一个过滤器
+	 * @param newFilter	新的过滤器
 	 */
 	void addFilter(Filter newFilter);
 
@@ -36,9 +33,9 @@ public interface Appender {
 	 * @Description:返回头过滤器。过滤器的组织是一个链表，所以所有的滤波器都可以通过这个附加的结果。如果没有过滤器则返回空。 Returns the head Filter. The Filters are organized in a linked list
 	 * and so all Filters on this Appender are available through the result.
 	 */
-	public Filter getFilter();
+	Filter getFilter();
 
-	public void clearFilters();
+	void clearFilters();
 
 	/**
 	 * Release any resources allocated within the appender such as file
@@ -48,7 +45,7 @@ public interface Appender {
 	 *
 	 * @since 0.8.4
 	 */
-	public void close();
+	void close();
 
 	/**
 	 Log in <code>Appender</code> specific way. When appropriate,
@@ -61,21 +58,19 @@ public interface Appender {
 	 * @date 2016年5月8日 下午7:45:26
 	 * @Description:
 	 */
-	public void doAppend(LoggingEvent event);
+	void doAppend(LoggingEvent event);
 
-	public String getName();
+	String getName();
 
+	void setName(String name);
 
-	public void setErrorHandler(ErrorHandler errorHandler);
+	ErrorHandler getErrorHandler();
 
-	public ErrorHandler getErrorHandler();
+	void setErrorHandler(ErrorHandler errorHandler);
 
-	public void setLayout(Layout layout);
+	Layout getLayout();
 
-	public Layout getLayout();
-
-
-	public void setName(String name);
+	void setLayout(Layout layout);
 
 	/**
 	 * Configurators call this method to determine if the appender
@@ -93,5 +88,5 @@ public interface Appender {
 	 *
 	 * @since 0.8.4
 	 */
-	public boolean requiresLayout();
+	boolean requiresLayout();
 }

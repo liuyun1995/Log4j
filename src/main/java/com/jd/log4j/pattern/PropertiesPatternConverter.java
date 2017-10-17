@@ -23,7 +23,6 @@ import com.jd.log4j.spi.LoggingEvent;
 
 import java.util.Iterator;
 import java.util.Set;
-import org.apache.log4j.helpers.*;
 
 
 /**

@@ -27,7 +27,7 @@ import com.jd.log4j.spi.ErrorCode;
 import com.jd.log4j.spi.LoggingEvent;
 import com.jd.log4j.spi.OptionHandler;
 import com.jd.log4j.spi.TriggeringEventEvaluator;
-import com.jd.log4j.xml.DOMConfigurator;
+import com.jd.log4j.xml.DomConfigurator;
 import com.jd.log4j.xml.UnrecognizedElementHandler;
 import org.w3c.dom.Element;
 
@@ -699,7 +699,7 @@ public class SMTPAppender extends AppenderSkeleton implements UnrecognizedElemen
                                           final Properties props) throws Exception {
       if ("triggeringPolicy".equals(element.getNodeName())) {
           Object triggerPolicy =
-                  DOMConfigurator.parseElement(
+                  DomConfigurator.parseElement(
                           element, props, TriggeringEventEvaluator.class);
           if (triggerPolicy instanceof TriggeringEventEvaluator) {
               setEvaluator((TriggeringEventEvaluator) triggerPolicy);

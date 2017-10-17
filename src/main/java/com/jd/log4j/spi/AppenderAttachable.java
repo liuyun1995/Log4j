@@ -22,60 +22,64 @@ import com.jd.log4j.Appender;
 import java.util.Enumeration;
 
 /**
+ * @author 张明明  braveheart1115@163.com
  * @Package org.apache.log4j.spi
  * @ClassName: AppenderAttachable
- * @author 张明明  braveheart1115@163.com
  * @date 2016年5月8日 下午8:23:10
- * @Description:将附加的内容输出到对象上。
- * Interface for attaching(附加) appenders(输出) to objects.
+ * @Description:将附加的内容输出到对象上。 Interface for attaching(附加) appenders(输出) to objects.
  */
 public interface AppenderAttachable {
 
 
-  /**
-   * 添加输出源
-   * @param newAppender
-     */
-  public void addAppender(Appender newAppender);
+	/**
+	 * 添加输出源
+	 *
+	 * @param newAppender
+	 */
+	public void addAppender(Appender newAppender);
 
-  /**
-   * 获取所有的输出源
-   * @return
-     */
-  @SuppressWarnings("rawtypes")
-  public Enumeration getAllAppenders();
+	/**
+	 * 获取所有的输出源
+	 *
+	 * @return
+	 */
+	@SuppressWarnings("rawtypes")
+	public Enumeration getAllAppenders();
 
-  /**
-   * 根据名称获取输出源
-   * @param name
-   * @return
-     */
-  public Appender getAppender(String name);
+	/**
+	 * 根据名称获取输出源
+	 *
+	 * @param name
+	 * @return
+	 */
+	public Appender getAppender(String name);
 
-  /**
-   * @author 张明明
-   * @date 2016年5月8日 下午8:26:42
-   * @param appender
-   * @Description: 是否是可以附加的。
-   */
-  public  boolean isAttached(Appender appender);
+	/**
+	 * @param appender
+	 * @author 张明明
+	 * @date 2016年5月8日 下午8:26:42
+	 * @Description: 是否是可以附加的。
+	 */
+	public boolean isAttached(Appender appender);
 
-  /**
-   * 删除所有的输出源
-   */
-  void removeAllAppenders();
+	/**
+	 * 删除所有的输出源
+	 */
+	void removeAllAppenders();
 
 
-  /**
-   * 按照输出源删除输出源
-   * @param appender
-   */
-  void removeAppender(Appender appender);
+	/**
+	 * 按照输出源删除输出源
+	 *
+	 * @param appender
+	 */
+	void removeAppender(Appender appender);
 
-  /**
-   * 按照名字删除输出源
-   * @param name
-     */
-  void removeAppender(String name);   
+	/**
+	 * 按照名字删除输出源
+	 *
+	 * @param name
+	 */
+	void removeAppender(String name);
 }
 

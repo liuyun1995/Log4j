@@ -23,7 +23,7 @@ import java.net.Socket;
 import com.jd.log4j.LogManager;
 import com.jd.log4j.Logger;
 import com.jd.log4j.PropertyConfigurator;
-import com.jd.log4j.xml.DOMConfigurator;
+import com.jd.log4j.xml.DomConfigurator;
 
 
 /**
@@ -34,7 +34,7 @@ import com.jd.log4j.xml.DOMConfigurator;
 
    where <em>port</em> is a port number where the server listens and
    <em>configFile</em> is a configuration file fed to the {@link
-PropertyConfigurator} or to {@link DOMConfigurator} if an XML file.
+PropertyConfigurator} or to {@link DomConfigurator} if an XML file.
    </pre>
   *
   * @author  Ceki G&uuml;lc&uuml;
@@ -89,7 +89,7 @@ public class SimpleSocketServer  {
     }
    
     if(configFile.endsWith(".xml")) {
-      DOMConfigurator.configure(configFile);
+      DomConfigurator.configure(configFile);
     } else {
       PropertyConfigurator.configure(configFile);
     }

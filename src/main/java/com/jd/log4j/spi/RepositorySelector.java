@@ -16,24 +16,22 @@
  */
 
 
-
 package com.jd.log4j.spi;
 
 
 /**
-
-   The <code>LogManager</code> uses one (and only one)
-   <code>RepositorySelector</code> implementation to select the
-   {@link LoggerRepository} for a particular application context.
-
-   <p>It is the responsability of the <code>RepositorySelector</code>
-   implementation to track the application context. Log4j makes no
-   assumptions about the application context or on its management.
-
-   <p>See also {@link com.jd.log4j.LogManager LogManager}.
-
-   @author Ceki G&uuml;lc&uuml;
-   @since 1.2
+ * The <code>LogManager</code> uses one (and only one)
+ * <code>RepositorySelector</code> implementation to select the
+ * {@link LoggerRepository} for a particular application context.
+ * <p>
+ * <p>It is the responsability of the <code>RepositorySelector</code>
+ * implementation to track the application context. Log4j makes no
+ * assumptions about the application context or on its management.
+ * <p>
+ * <p>See also {@link com.jd.log4j.LogManager LogManager}.
+ *
+ * @author Ceki G&uuml;lc&uuml;
+ * @since 1.2
  */
 
 
@@ -44,11 +42,11 @@ package com.jd.log4j.spi;
  */
 public interface RepositorySelector {
 
-  /**
-     Returns a {@link LoggerRepository} depending on the
-     context. Implementors must make sure that a valid (non-null)
-     LoggerRepository is returned.
-  */
-  public LoggerRepository getLoggerRepository();
+	/**
+	 Returns a {@link LoggerRepository} depending on the
+	 context. Implementors must make sure that a valid (non-null)
+	 LoggerRepository is returned.
+	 */
+	LoggerRepository getLoggerRepository();
 }
 

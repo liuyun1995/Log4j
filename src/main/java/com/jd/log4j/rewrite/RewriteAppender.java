@@ -19,7 +19,7 @@ package com.jd.log4j.rewrite;
 import com.jd.log4j.helpers.AppenderAttachableImpl;
 import com.jd.log4j.spi.AppenderAttachable;
 import com.jd.log4j.spi.LoggingEvent;
-import com.jd.log4j.xml.DOMConfigurator;
+import com.jd.log4j.xml.DomConfigurator;
 import com.jd.log4j.Appender;
 import com.jd.log4j.AppenderSkeleton;
 import com.jd.log4j.spi.OptionHandler;
@@ -145,7 +145,7 @@ public class RewriteAppender extends AppenderSkeleton  implements AppenderAttach
         final String nodeName = element.getNodeName();
         if ("rewritePolicy".equals(nodeName)) {
             Object rewritePolicy =
-                    DOMConfigurator.parseElement(
+                    DomConfigurator.parseElement(
                             element, props, RewritePolicy.class);
             if (rewritePolicy != null) {
                 if (rewritePolicy instanceof OptionHandler) {

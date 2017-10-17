@@ -21,26 +21,25 @@ import org.xml.sax.ErrorHandler;
 import org.xml.sax.SAXParseException;
 import com.jd.log4j.helpers.LogLog;
 
-public class SAXErrorHandler implements ErrorHandler {
+public class SaxErrorHandler implements ErrorHandler {
 
-  public
-  void error(final SAXParseException ex) {
-    emitMessage("Continuable parsing error ", ex);
-  }
-  
-  public
-  void fatalError(final SAXParseException ex) {
-    emitMessage("Fatal parsing error ", ex);
-  }
-   
-  public
-  void warning(final SAXParseException ex) {
-    emitMessage("Parsing warning ", ex);
-  }
-  
-  private static void emitMessage(final String msg, final SAXParseException ex) {
-    LogLog.warn(msg +ex.getLineNumber()+" and column "
-		 +ex.getColumnNumber());
-    LogLog.warn(ex.getMessage(), ex.getException());
-  }
+	private static void emitMessage(final String msg, final SAXParseException ex) {
+		LogLog.warn(msg + ex.getLineNumber() + " and column " + ex.getColumnNumber());
+		LogLog.warn(ex.getMessage(), ex.getException());
+	}
+
+	@Override
+	public void error(final SAXParseException ex) {
+		emitMessage("Continuable parsing error ", ex);
+	}
+
+	@Override
+	public void fatalError(final SAXParseException ex) {
+		emitMessage("Fatal parsing error ", ex);
+	}
+
+	@Override
+	public void warning(final SAXParseException ex) {
+		emitMessage("Parsing warning ", ex);
+	}
 }

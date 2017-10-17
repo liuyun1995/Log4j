@@ -20,18 +20,16 @@ package com.jd.log4j.spi;
 import com.jd.log4j.Logger;
 
 /**
-   
-  Implement this interface to create new instances of Logger or
-  a sub-class of Logger.
-
-  <p>See <code>examples/subclass/MyLogger.java</code> for an example.
-
-  @author Ceki G&uuml;lc&uuml;
-  @since version 0.8.5
-   
+ * Implement this interface to create new instances of Logger or
+ * a sub-class of Logger.
+ * <p>
+ * <p>See <code>examples/subclass/MyLogger.java</code> for an example.
+ *
+ * @author Ceki G&uuml;lc&uuml;
+ * @since version 0.8.5
  */
 public interface LoggerFactory {
 
-  public Logger makeNewLoggerInstance(String name);
+	Logger makeNewLoggerInstance(String name);
 
 }

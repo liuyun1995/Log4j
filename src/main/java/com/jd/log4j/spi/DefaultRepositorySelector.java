@@ -16,31 +16,35 @@
  */
 
 
-
 package com.jd.log4j.spi;
 
 
 /**
+ * @author 张明明  braveheart1115@163.com
  * @Package org.apache.log4j.spi
  * @ClassName: DefaultRepositorySelector
- * @author 张明明  braveheart1115@163.com
  * @date 2016年5月7日 下午5:21:51
  * @Description: 默认仓库选择类。
  */
 public class DefaultRepositorySelector implements RepositorySelector {
 
-  final LoggerRepository repository;
+	final LoggerRepository repository;
 
-  /**
-   * @param repository
-   * Description:构造方法。
-   */
-  public  DefaultRepositorySelector(LoggerRepository repository) {
-    this.repository = repository;
-  }
+	/**
+	 * @param repository Description:构造方法。
+	 */
+	public DefaultRepositorySelector(LoggerRepository repository) {
+		this.repository = repository;
+	}
 
-  public LoggerRepository getLoggerRepository() {
-    return repository;
-  }
+	/**
+	 * Returns a {@link LoggerRepository} depending on the
+	 * context. Implementors must make sure that a valid (non-null)
+	 * LoggerRepository is returned.
+	 */
+	@Override
+	public LoggerRepository getLoggerRepository() {
+		return repository;
+	}
 }
 

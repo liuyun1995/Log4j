@@ -20,7 +20,7 @@ import org.w3c.dom.Element;
 import java.util.Properties;
 
 /**
- * When implemented by an object configured by DOMConfigurator,
+ * When implemented by an object configured by DomConfigurator,
  * the handle method will be called when an unrecognized child
  * element is encountered.  Unrecognized child elements of
  * the log4j:configuration element will be dispatched to
