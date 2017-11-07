@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.jd.log4j.net;
+package com.jd.log4j.appender.net;
 
 import com.jd.log4j.AppenderSkeleton;
 import com.jd.log4j.Layout;

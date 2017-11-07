@@ -34,7 +34,7 @@ import javax.management.NotCompliantMBeanException;
 import javax.management.ObjectName;
 import javax.management.RuntimeOperationsException;
 
-import com.jd.log4j.Appender;
+import com.jd.log4j.appender.Appender;
 import com.jd.log4j.Logger;
 
 public abstract class AbstractDynamicMBean implements DynamicMBean,

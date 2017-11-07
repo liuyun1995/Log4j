@@ -17,7 +17,7 @@
 
 package com.jd.log4j.spi;
 
-import com.jd.log4j.net.SMTPAppender;
+import com.jd.log4j.appender.net.SMTPAppender;
 
 /**
    

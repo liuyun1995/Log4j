@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.jd.log4j;
+package com.jd.log4j.appender;
 
 import java.io.BufferedWriter;
 import java.io.File;
@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.Writer;
 
+import com.jd.log4j.Layout;
 import com.jd.log4j.helpers.LogLog;
 import com.jd.log4j.helpers.QuietWriter;
 import com.jd.log4j.spi.ErrorCode;
@@ -89,7 +90,7 @@ public class FileAppender extends WriterAppender {
 	 * then buffered IO will be used to write to the output file.
 	 */
 	public FileAppender(Layout layout, String filename, boolean append, boolean bufferedIO,
-						int bufferSize) throws IOException {
+                        int bufferSize) throws IOException {
 		this.layout = layout;
 		this.setFile(filename, append, bufferedIO, bufferSize);
 	}

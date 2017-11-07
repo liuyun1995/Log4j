@@ -17,6 +17,7 @@
 
 package com.jd.log4j;
 
+import com.jd.log4j.appender.AsyncAppender;
 import com.jd.log4j.helpers.AppenderAttachableImpl;
 import com.jd.log4j.helpers.BoundedFIFO;
 import com.jd.log4j.spi.LoggingEvent;

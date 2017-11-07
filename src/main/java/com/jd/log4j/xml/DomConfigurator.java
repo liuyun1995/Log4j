@@ -17,7 +17,7 @@
 
 package com.jd.log4j.xml;
 
-import com.jd.log4j.Appender;
+import com.jd.log4j.appender.Appender;
 import com.jd.log4j.Level;
 import com.jd.log4j.LogManager;
 import com.jd.log4j.Logger;
@@ -559,6 +559,7 @@ public class DomConfigurator implements Configurator {
 	}
 
 	/**
+     * 解析CategoryFactory
 	 * Used internally to parse the category factory element.
 	 */
 	protected void parseCategoryFactory(Element factoryElement) {
@@ -961,6 +962,7 @@ public class DomConfigurator implements Configurator {
 
 		String rootElementName = element.getTagName();
 
+		//校验Configuration节点
 		if (!rootElementName.equals(CONFIGURATION_TAG)) {
 			if (rootElementName.equals(OLD_CONFIGURATION_TAG)) {
 				LogLog.warn("The <" + OLD_CONFIGURATION_TAG + "> element has been deprecated.");

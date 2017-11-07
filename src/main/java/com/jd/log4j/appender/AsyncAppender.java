@@ -17,7 +17,7 @@
 
 // Contibutors:  Aaron Greenhouse <aarong@cs.cmu.edu>
 //               Thomas Tuft Muller <ttm@online.no>
-package com.jd.log4j;
+package com.jd.log4j.appender;
 
 import java.text.MessageFormat;
 import java.util.ArrayList;
@@ -27,6 +27,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import com.jd.log4j.AppenderSkeleton;
+import com.jd.log4j.Logger;
 import com.jd.log4j.helpers.LogLog;
 import com.jd.log4j.helpers.AppenderAttachableImpl;
 import com.jd.log4j.spi.AppenderAttachable;

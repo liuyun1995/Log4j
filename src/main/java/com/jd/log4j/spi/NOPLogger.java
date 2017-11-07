@@ -16,7 +16,7 @@
  */
 package com.jd.log4j.spi;
 
-import com.jd.log4j.Appender;
+import com.jd.log4j.appender.Appender;
 import com.jd.log4j.Level;
 import com.jd.log4j.Logger;
 import com.jd.log4j.Priority;

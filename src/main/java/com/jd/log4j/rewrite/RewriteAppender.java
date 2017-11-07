@@ -20,7 +20,7 @@ import com.jd.log4j.helpers.AppenderAttachableImpl;
 import com.jd.log4j.spi.AppenderAttachable;
 import com.jd.log4j.spi.LoggingEvent;
 import com.jd.log4j.xml.DomConfigurator;
-import com.jd.log4j.Appender;
+import com.jd.log4j.appender.Appender;
 import com.jd.log4j.AppenderSkeleton;
 import com.jd.log4j.spi.OptionHandler;
 import com.jd.log4j.xml.UnrecognizedElementHandler;

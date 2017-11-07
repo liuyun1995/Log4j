@@ -24,7 +24,7 @@ import java.io.InterruptedIOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import com.jd.log4j.RollingFileAppender;
+import com.jd.log4j.appender.RollingFileAppender;
 import com.jd.log4j.helpers.LogLog;
 
 /**

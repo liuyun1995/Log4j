@@ -19,7 +19,7 @@
 
 package com.jd.log4j.config;
 
-import com.jd.log4j.Appender;
+import com.jd.log4j.appender.Appender;
 import com.jd.log4j.Level;
 import com.jd.log4j.Priority;
 import com.jd.log4j.helpers.OptionConverter;

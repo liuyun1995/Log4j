@@ -18,7 +18,7 @@
 package com.jd.log4j.spi;
 
 
-import com.jd.log4j.FileAppender;
+import com.jd.log4j.appender.FileAppender;
 
 /**
    A string based interface to configure package components.

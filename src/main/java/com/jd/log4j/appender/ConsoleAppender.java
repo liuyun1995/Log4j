@@ -15,10 +15,12 @@
  * limitations under the License.
  */
 
-package com.jd.log4j;
+package com.jd.log4j.appender;
 
 import java.io.IOException;
 import java.io.OutputStream;
+
+import com.jd.log4j.Layout;
 import com.jd.log4j.helpers.LogLog;
 
 /**

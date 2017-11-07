@@ -17,13 +17,14 @@
 
 
 
-package com.jd.log4j;
+package com.jd.log4j.appender;
 
 import java.io.IOException;
 import java.io.Writer;
 import java.io.File;
 import java.io.InterruptedIOException;
 
+import com.jd.log4j.Layout;
 import com.jd.log4j.helpers.CountingQuietWriter;
 import com.jd.log4j.helpers.OptionConverter;
 import com.jd.log4j.spi.LoggingEvent;

@@ -17,7 +17,7 @@
 
 // Contributors: Dan MacDonald <dan@redknee.com>
 
-package com.jd.log4j.net;
+package com.jd.log4j.appender.net;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;

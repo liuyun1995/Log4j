@@ -18,7 +18,7 @@
 package com.jd.log4j;
 
 import com.jd.log4j.helpers.Transform;
-import com.jd.log4j.net.SMTPAppender;
+import com.jd.log4j.appender.net.SMTPAppender;
 import com.jd.log4j.spi.LocationInfo;
 import com.jd.log4j.spi.LoggingEvent;
 

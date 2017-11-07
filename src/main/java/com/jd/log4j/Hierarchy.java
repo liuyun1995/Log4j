@@ -32,7 +32,9 @@ import java.util.Hashtable;
 import java.util.Enumeration;
 import java.util.Vector;
 
-import com.jd.log4j.net.SocketAppender;
+import com.jd.log4j.appender.Appender;
+import com.jd.log4j.appender.AsyncAppender;
+import com.jd.log4j.appender.net.SocketAppender;
 import com.jd.log4j.or.RendererMap;
 import com.jd.log4j.spi.LoggerFactory;
 import com.jd.log4j.spi.HierarchyEventListener;

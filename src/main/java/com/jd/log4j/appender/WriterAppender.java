@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.jd.log4j;
+package com.jd.log4j.appender;
 
 import java.io.IOException;
 import java.io.InterruptedIOException;
@@ -23,6 +23,8 @@ import java.io.OutputStream;
 import java.io.OutputStreamWriter;
 import java.io.Writer;
 
+import com.jd.log4j.AppenderSkeleton;
+import com.jd.log4j.Layout;
 import com.jd.log4j.spi.LoggingEvent;
 import com.jd.log4j.helpers.LogLog;
 import com.jd.log4j.helpers.QuietWriter;

@@ -20,7 +20,7 @@ package com.jd.log4j.jmx;
 import com.jd.log4j.Level;
 import com.jd.log4j.Logger;
 import com.jd.log4j.helpers.OptionConverter;
-import com.jd.log4j.Appender;
+import com.jd.log4j.appender.Appender;
 
 import javax.management.Attribute;
 import javax.management.AttributeNotFoundException;

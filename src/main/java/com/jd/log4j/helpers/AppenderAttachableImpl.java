@@ -20,7 +20,7 @@ package com.jd.log4j.helpers;
 import com.jd.log4j.spi.LoggingEvent;
 import com.jd.log4j.spi.AppenderAttachable;
 
-import com.jd.log4j.Appender;
+import com.jd.log4j.appender.Appender;
 import java.util.Vector;
 import java.util.Enumeration;
 

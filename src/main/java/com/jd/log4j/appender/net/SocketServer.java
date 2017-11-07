@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package com.jd.log4j.net;
+package com.jd.log4j.appender.net;
 
 import java.io.File;
 import java.net.InetAddress;

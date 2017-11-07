@@ -1,5 +1,6 @@
-package com.jd.log4j;
+package com.jd.log4j.appender;
 
+import com.jd.log4j.Layout;
 import com.jd.log4j.spi.LoggingEvent;
 import com.jd.log4j.spi.Filter;
 import com.jd.log4j.spi.ErrorHandler;

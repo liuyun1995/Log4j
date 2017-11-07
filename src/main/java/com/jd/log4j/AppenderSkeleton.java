@@ -17,7 +17,8 @@
 
 package com.jd.log4j;
 
-import com.jd.log4j.net.SocketAppender;
+import com.jd.log4j.appender.Appender;
+import com.jd.log4j.appender.net.SocketAppender;
 import com.jd.log4j.spi.LoggingEvent;
 import com.jd.log4j.spi.OptionHandler;
 import com.jd.log4j.spi.Filter;

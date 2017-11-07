@@ -20,7 +20,7 @@
 
 package com.jd.log4j.helpers;
 
-import com.jd.log4j.AsyncAppender;
+import com.jd.log4j.appender.AsyncAppender;
 import com.jd.log4j.spi.LoggingEvent;
 
 /**

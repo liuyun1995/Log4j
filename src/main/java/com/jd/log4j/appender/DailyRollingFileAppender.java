@@ -16,7 +16,7 @@
  */
 
 
-package com.jd.log4j;
+package com.jd.log4j.appender;
 
 import java.io.IOException;
 import java.io.File;
@@ -28,6 +28,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.Locale;
 
+import com.jd.log4j.Layout;
 import com.jd.log4j.spi.LoggingEvent;
 import com.jd.log4j.helpers.LogLog;
 
@@ -199,7 +200,7 @@ public class DailyRollingFileAppender extends FileAppender {
 	 * become the ouput destination for this appender.
 	 */
 	public DailyRollingFileAppender(Layout layout, String filename,
-									String datePattern) throws IOException {
+                                    String datePattern) throws IOException {
 		super(layout, filename, true);
 		this.datePattern = datePattern;
 		activateOptions();
