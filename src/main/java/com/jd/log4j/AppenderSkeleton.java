@@ -28,6 +28,13 @@ import com.jd.log4j.helpers.LogLog;
 
 
 /**
+ *
+ * 在Log4j中，基本上所有的具体的Appender都会继承当前类。所以当前类被命名为“Appender骨架”，
+ * 也就是说，为所有具体的Appender提供一些通用的功能。
+ * 比方说：
+ * 1，日志等级阀门（应该是，比方说在配置文件中配置了threshold为WARN，那么只会打印大于等于WARN级别的日志）功能。
+ * 2，对一般性的过滤器的支持（Appender接口中不是定义了添加Filter的功能么）。
+ *
  * Abstract superclass of the other appenders in the package.
  * <p>
  * This class provides the code for common functionality功能, such as
@@ -36,28 +43,23 @@ import com.jd.log4j.helpers.LogLog;
  * @author Ceki G&uuml;lc&uuml;
  * @since 0.8.1
  */
-
-/**
- * @author 张明明  braveheart1115@163.com
- * @Package org.apache.log4j
- * @ClassName: AppenderSkeleton
- * @date 2016年5月8日 下午10:12:40
- * @Description:输出骨架， Skeleton:骨骼,骨架。
- */
 public abstract class AppenderSkeleton implements Appender, OptionHandler {
 
 	/**
+     * 日志格式化器，如果具体实现类有自己特有的格式化器，那此处就不用设置了。
 	 * The layout variable does not need to be set if the appender
 	 * implementation has its own layout.
 	 */
 	protected Layout layout;
 
 	/**
+     * 当前Appender的名字
 	 * Appenders are named.
 	 */
 	protected String name;
 
 	/**
+     * 日志阀门，如果没有filter的话，则使用阀门过滤
 	 * There is no level threshold filtering by default.
 	 */
 	protected Priority threshold;
@@ -68,21 +70,25 @@ public abstract class AppenderSkeleton implements Appender, OptionHandler {
 	protected ErrorHandler errorHandler = new OnlyOnceErrorHandler();
 
 	/**
+     * 第一个过滤器
 	 * The first filter in the filter chain. Set to <code>null</code>
 	 * initially.
 	 */
 	protected Filter headFilter;
 	/**
+     * 最后一个过滤器
 	 * The last filter in the filter chain.
 	 */
 	protected Filter tailFilter;
 
 	/**
+     * 判断当前Appender是否已被关闭
 	 * Is this appender closed?
 	 */
 	protected boolean closed = false;
 
 	/**
+     * 构造函数
 	 * Create new instance.
 	 */
 	public AppenderSkeleton() {
@@ -106,6 +112,7 @@ public abstract class AppenderSkeleton implements Appender, OptionHandler {
 	 * Derived appenders should override this method if option structure
 	 * requires it.
 	 */
+	@Override
 	public void activateOptions() {
 	}
 
@@ -115,6 +122,7 @@ public abstract class AppenderSkeleton implements Appender, OptionHandler {
 	 *
 	 * @since 0.9.0
 	 */
+	@Override
 	public void addFilter(Filter newFilter) {
 		if (headFilter == null) {
 			headFilter = tailFilter = newFilter;
@@ -276,6 +284,7 @@ public abstract class AppenderSkeleton implements Appender, OptionHandler {
 	 * delegating actual logging to the subclasses specific {@link
 	 * AppenderSkeleton#append} method.
 	 */
+	@Override
 	public synchronized void doAppend(LoggingEvent event) {
 		if (closed) {
 			LogLog.error("Attempted to append to closed appender named [" + name + "].");
