@@ -24,7 +24,7 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 
 import com.liuyun.log4j.AppenderSkeleton;
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.spi.LoggingEvent;
 import com.liuyun.log4j.helpers.LogLog;
 import com.liuyun.log4j.helpers.QuietWriter;

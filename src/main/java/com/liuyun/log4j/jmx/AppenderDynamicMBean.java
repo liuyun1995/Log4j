@@ -18,7 +18,7 @@
 package com.liuyun.log4j.jmx;
 
 import com.liuyun.log4j.appender.Appender;
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.Level;
 import com.liuyun.log4j.Logger;
 import com.liuyun.log4j.Priority;

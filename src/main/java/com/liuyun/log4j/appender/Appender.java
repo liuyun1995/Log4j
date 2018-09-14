@@ -1,6 +1,6 @@
 package com.liuyun.log4j.appender;
 
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.spi.LoggingEvent;
 import com.liuyun.log4j.spi.Filter;
 import com.liuyun.log4j.spi.ErrorHandler;

@@ -22,7 +22,7 @@ import java.lang.reflect.Constructor;
 import com.liuyun.log4j.Level;
 import com.liuyun.log4j.Logger;
 import com.liuyun.log4j.Priority;
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.helpers.OptionConverter;
 import com.liuyun.log4j.spi.OptionHandler;
 

@@ -17,7 +17,7 @@
 
 package com.liuyun.log4j.or;
 
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 
 
 /**

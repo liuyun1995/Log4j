@@ -18,8 +18,10 @@
 // Contributors: Christopher Williams
 //               Mathias Bogaert
 
-package com.liuyun.log4j;
+package com.liuyun.log4j.layout;
 
+import com.liuyun.log4j.Category;
+import com.liuyun.log4j.NDC;
 import com.liuyun.log4j.helpers.DateLayout;
 import com.liuyun.log4j.helpers.RelativeTimeDateFormat;
 import com.liuyun.log4j.spi.LoggingEvent;

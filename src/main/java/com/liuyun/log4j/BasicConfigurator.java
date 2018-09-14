@@ -24,6 +24,7 @@ package com.liuyun.log4j;
 
 import com.liuyun.log4j.appender.Appender;
 import com.liuyun.log4j.appender.ConsoleAppender;
+import com.liuyun.log4j.layout.PatternLayout;
 import com.liuyun.log4j.xml.DomConfigurator;
 
 /**

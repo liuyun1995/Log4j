@@ -29,7 +29,7 @@ import com.liuyun.log4j.helpers.SyslogQuietWriter;
 import com.liuyun.log4j.helpers.SyslogWriter;
 import com.liuyun.log4j.spi.LoggingEvent;
 import com.liuyun.log4j.AppenderSkeleton;
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 
 // Contributors: Yves Bossel <ybossel@opengets.cl>
 //               Christopher Taylor <cstaylor@pacbell.net>

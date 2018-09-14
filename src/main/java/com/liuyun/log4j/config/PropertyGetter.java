@@ -12,6 +12,7 @@ import java.lang.reflect.Method;
 
 //属性获取器
 public class PropertyGetter {
+
     protected static final Object[] NULL_ARG = new Object[]{};
     protected Object obj;
     protected PropertyDescriptor[] props;

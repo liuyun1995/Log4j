@@ -25,6 +25,8 @@ import java.util.Stack;
 import java.util.Enumeration;
 import java.util.Vector;
 
+import com.liuyun.log4j.layout.PatternLayout;
+import com.liuyun.log4j.layout.TTCCLayout;
 import com.liuyun.log4j.spi.LoggingEvent;
 import com.liuyun.log4j.helpers.LogLog;
 
@@ -74,7 +76,7 @@ import com.liuyun.log4j.helpers.LogLog;
    and the context set in the NDC.
 
    <p>If configured to do so, {@link PatternLayout} and {@link
-   TTCCLayout} instances automatically retrieve the nested diagnostic
+TTCCLayout} instances automatically retrieve the nested diagnostic
    context for the current thread without any user intervention.
    Hence, even if a servlet is serving multiple clients
    simultaneously, the logs emanating from the same code (belonging to

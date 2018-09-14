@@ -19,7 +19,7 @@
 
 package com.liuyun.log4j.spi;
 
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.helpers.LogLog;
 
 import java.io.PrintWriter;

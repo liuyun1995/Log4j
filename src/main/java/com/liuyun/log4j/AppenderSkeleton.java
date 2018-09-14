@@ -19,6 +19,7 @@ package com.liuyun.log4j;
 
 import com.liuyun.log4j.appender.Appender;
 import com.liuyun.log4j.appender.net.SocketAppender;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.spi.LoggingEvent;
 import com.liuyun.log4j.spi.OptionHandler;
 import com.liuyun.log4j.spi.Filter;

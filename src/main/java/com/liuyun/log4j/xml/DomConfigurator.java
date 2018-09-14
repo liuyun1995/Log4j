@@ -24,7 +24,7 @@ import com.liuyun.log4j.Logger;
 import com.liuyun.log4j.helpers.FileWatchdog;
 import com.liuyun.log4j.helpers.OptionConverter;
 import com.liuyun.log4j.or.RendererMap;
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.config.PropertySetter;
 import com.liuyun.log4j.helpers.Loader;
 import com.liuyun.log4j.helpers.LogLog;

@@ -20,7 +20,7 @@ package com.liuyun.log4j.appender;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.helpers.LogLog;
 
 //控制台日志输出器

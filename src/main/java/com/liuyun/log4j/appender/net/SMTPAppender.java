@@ -18,7 +18,7 @@
 package com.liuyun.log4j.appender.net;
 
 import com.liuyun.log4j.AppenderSkeleton;
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.Level;
 import com.liuyun.log4j.helpers.CyclicBuffer;
 import com.liuyun.log4j.helpers.LogLog;

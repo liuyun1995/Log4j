@@ -8,7 +8,7 @@ import java.io.IOException;
 import java.io.InterruptedIOException;
 import java.io.Writer;
 
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.helpers.LogLog;
 import com.liuyun.log4j.helpers.QuietWriter;
 import com.liuyun.log4j.spi.ErrorCode;

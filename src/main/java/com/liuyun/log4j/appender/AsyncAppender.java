@@ -41,7 +41,7 @@ public class AsyncAppender extends AppenderSkeleton implements AppenderAttachabl
     /**
      * Nested appenders.
      */
-    AppenderAttachableImpl aai;
+    public AppenderAttachableImpl aai;
 
     /**
      * Nested appenders.

@@ -7,7 +7,7 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Iterator;
 import com.liuyun.log4j.AppenderSkeleton;
-import com.liuyun.log4j.PatternLayout;
+import com.liuyun.log4j.layout.PatternLayout;
 import com.liuyun.log4j.spi.ErrorCode;
 import com.liuyun.log4j.spi.LoggingEvent;
 

@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-package com.liuyun.log4j;
+package com.liuyun.log4j.layout;
 
+import com.liuyun.log4j.Level;
 import com.liuyun.log4j.helpers.Transform;
 import com.liuyun.log4j.appender.net.SMTPAppender;
 import com.liuyun.log4j.spi.LocationInfo;

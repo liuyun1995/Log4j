@@ -18,7 +18,7 @@
 package com.liuyun.log4j.helpers;
 
 import com.liuyun.log4j.spi.LoggingEvent;
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

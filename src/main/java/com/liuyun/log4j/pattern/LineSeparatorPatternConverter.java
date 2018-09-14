@@ -17,7 +17,7 @@
 
 package com.liuyun.log4j.pattern;
 
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.spi.LoggingEvent;
 
 

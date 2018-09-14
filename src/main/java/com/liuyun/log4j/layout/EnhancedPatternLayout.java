@@ -15,8 +15,9 @@
  * limitations under the License.
  */
 
-package com.liuyun.log4j;
+package com.liuyun.log4j.layout;
 
+import com.liuyun.log4j.MDC;
 import com.liuyun.log4j.helpers.OptionConverter;
 import com.liuyun.log4j.helpers.PatternParser;
 import com.liuyun.log4j.pattern.BridgePatternConverter;

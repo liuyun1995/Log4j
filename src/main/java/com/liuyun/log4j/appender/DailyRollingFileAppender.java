@@ -28,7 +28,7 @@ import java.util.Calendar;
 import java.util.TimeZone;
 import java.util.Locale;
 
-import com.liuyun.log4j.Layout;
+import com.liuyun.log4j.layout.Layout;
 import com.liuyun.log4j.spi.LoggingEvent;
 import com.liuyun.log4j.helpers.LogLog;
 

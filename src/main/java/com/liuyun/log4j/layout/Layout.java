@@ -1,5 +1,8 @@
-package com.liuyun.log4j;
+package com.liuyun.log4j.layout;
 
+import com.liuyun.log4j.layout.PatternLayout;
+import com.liuyun.log4j.layout.SimpleLayout;
+import com.liuyun.log4j.layout.TTCCLayout;
 import com.liuyun.log4j.spi.LoggingEvent;
 import com.liuyun.log4j.spi.OptionHandler;
 import com.liuyun.log4j.xml.XMLLayout;

@@ -1,20 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- * 
- *      http://www.apache.org/licenses/LICENSE-2.0
- * 
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.liuyun.log4j.helpers;
 
 /**
@@ -81,8 +64,7 @@ public class LogLog {
     /**
      * Allows to enable/disable log4j internal logging.
      */
-    static
-    public void setInternalDebugging(boolean enabled) {
+    public static void setInternalDebugging(boolean enabled) {
         debugEnabled = enabled;
     }
 
@@ -90,8 +72,7 @@ public class LogLog {
      * This method is used to output log4j internal debug
      * statements. Output goes to <code>System.out</code>.
      */
-    public
-    static void debug(String msg) {
+    public static void debug(String msg) {
         if (debugEnabled && !quietMode) {
             System.out.println(PREFIX + msg);
         }
@@ -101,8 +82,7 @@ public class LogLog {
      * This method is used to output log4j internal debug
      * statements. Output goes to <code>System.out</code>.
      */
-    public
-    static void debug(String msg, Throwable t) {
+    public static void debug(String msg, Throwable t) {
         if (debugEnabled && !quietMode) {
             System.out.println(PREFIX + msg);
             if (t != null) {
@@ -117,8 +97,7 @@ public class LogLog {
      * statements. There is no way to disable error statements.
      * Output goes to <code>System.err</code>.
      */
-    public
-    static void error(String msg) {
+    public static void error(String msg) {
         if (quietMode) {
             return;
         }
@@ -130,8 +109,7 @@ public class LogLog {
      * statements. There is no way to disable error statements.
      * Output goes to <code>System.err</code>.
      */
-    public
-    static void error(String msg, Throwable t) {
+    public static void error(String msg, Throwable t) {
         if (quietMode) {
             return;
         }
@@ -148,8 +126,7 @@ public class LogLog {
      *
      * @param quietMode A true for not
      */
-    public
-    static void setQuietMode(boolean quietMode) {
+    public static void setQuietMode(boolean quietMode) {
         LogLog.quietMode = quietMode;
     }
 
@@ -158,8 +135,7 @@ public class LogLog {
      * statements. There is no way to disable warning statements.
      * Output goes to <code>System.err</code>.
      */
-    public
-    static void warn(String msg) {
+    public static void warn(String msg) {
         if (quietMode) {
             return;
         }
@@ -172,8 +148,7 @@ public class LogLog {
      * no way to disable warning statements.  Output goes to
      * <code>System.err</code>.
      */
-    public
-    static void warn(String msg, Throwable t) {
+    public static void warn(String msg, Throwable t) {
         if (quietMode) {
             return;
         }

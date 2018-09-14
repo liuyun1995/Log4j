@@ -17,7 +17,7 @@
 
 package com.liuyun.log4j.pattern;
 
-import com.liuyun.log4j.EnhancedPatternLayout;
+import com.liuyun.log4j.layout.EnhancedPatternLayout;
 import com.liuyun.log4j.helpers.Loader;
 import com.liuyun.log4j.helpers.LogLog;
 
