@@ -6,79 +6,52 @@ import com.liuyun.log4j.Category;
 import com.liuyun.log4j.Level;
 import com.liuyun.log4j.Logger;
 
-/**
- * A <code>LoggerRepository</code> is used to create and retrieve
- * <code>Loggers</code>. The relation between loggers in a repository
- * depends on the repository but typically loggers are arranged in a
- * named hierarchy.
- *
- * <p>In addition to the creational methods, a
- * <code>LoggerRepository</code> can be queried for existing loggers,
- * can act as a point of registry for events related to loggers.
- *
- * @author Ceki G&uuml;lc&uuml;
- * @since 1.2
- */
-
-
-/**
- * @Package org.apache.log4j.spi
- * @ClassName: LoggerRepository
- * @author 张明明  braveheart1115@163.com
- * @date 2016年5月7日 下午4:08:39
- * @Description:是一个Logger的容器，它会创建并缓存Logger实例，从而具有相同名字的Logger实例不会多次创建，以提高性能。
- * 参考 http://www.blogjava.net/DLevin/archive/2012/07/10/382678.html
- */
+//日志实例容器
 public interface LoggerRepository {
 
-    /**
-     Add a {@link HierarchyEventListener} event to the repository.
-     添加层级事件，根据日志的级别添加。
-     */
+    //添加层级事件监听器
     public void addHierarchyEventListener(HierarchyEventListener listener);
 
-    /**
-     Returns whether this repository is disabled for a given level. 
-     The answer depends on the repository threshold and the level parameter. 
-     See also setThreshold method.  */
+    //是否可用
     boolean isDisabled(int level);
 
-    /**
-     Set the repository-wide threshold. All logging requests below the
-     threshold are immediately dropped. By default, the threshold is
-     set to <code>Level.ALL</code> which has the lowest possible rank.  */
+    //设置阀值
     public void setThreshold(Level level);
 
-    /**
-     Another form of {@link #setThreshold(Level)} accepting a string
-     parameter instead of a <code>Level</code>. */
+    //设置阀值
     public void setThreshold(String val);
 
+    //发送无输出器的警告
     public void emitNoAppenderWarning(Category cat);
 
-    /**
-     Get the repository-wide threshold. See {@link
-    #setThreshold(Level)} for an explanation. */
+    //获取阀值
     public Level getThreshold();
 
+    //获取日志对象
     public Logger getLogger(String name);
 
+    //获取日志对象
     public Logger getLogger(String name, LoggerFactory factory);
 
+    //获取根级日志对象
     public Logger getRootLogger();
 
+    //判断日志对象是否存在
     public abstract Logger exists(String name);
 
+    //关闭日志容器
     public abstract void shutdown();
 
+    //获取当前日志对象
     public Enumeration getCurrentLoggers();
 
-    /**
-     Deprecated. Please use {@link #getCurrentLoggers} instead.  */
+    //获取当前分类
     public Enumeration getCurrentCategories();
 
+    //移除添加输出器事件
     public abstract void fireAddAppenderEvent(Category logger, Appender appender);
 
+    //重置配置信息
     public abstract void resetConfiguration();
 
 }

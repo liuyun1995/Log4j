@@ -1,19 +1,9 @@
 package com.liuyun.log4j.spi;
 
-/**
- * Implemented by classes that render instances of
- * java.lang.Throwable (exceptions and errors)
- * into a string representation.
- *
- * @since 1.2.16
- */
+//异常渲染器
 public interface ThrowableRenderer {
-    /**
-     * Render Throwable.
-     *
-     * @param t throwable, may not be null.
-     * @return String representation.
-     */
+
+    //进行异常渲染
     public String[] doRender(Throwable t);
 
 }

@@ -103,12 +103,15 @@ public class PropertyConfigurator implements Configurator {
         doConfigure(props, hierarchy);
     }
 
+    //解析属性文件
     public void doConfigure(Properties properties, LoggerRepository hierarchy) {
         repository = hierarchy;
-        //DEBUG模式
+        //获取log4j.debug属性值
         String value = properties.getProperty(LogLog.DEBUG_KEY);
         if (value == null) {
+            //若log4j.debug属性值为空，则获取log4j.configDebug属性
             value = properties.getProperty("log4j.configDebug");
+            //警告说log4j.configDebug属性已经弃用
             if (value != null) {
                 LogLog.warn("[log4j.configDebug] is deprecated. Use [log4j.debug] instead.");
             }
@@ -118,10 +121,9 @@ public class PropertyConfigurator implements Configurator {
             LogLog.setInternalDebugging(OptionConverter.toBoolean(value, true));
         }
 
-        //
-        //   if log4j.reset=true then
-        //        reset hierarchy
+        //获取log4j.reset属性值
         String reset = properties.getProperty(RESET_KEY);
+        //若log4j.reset为true则重置配置信息
         if (reset != null && OptionConverter.toBoolean(reset, false)) {
             hierarchy.resetConfiguration();
         }
@@ -131,9 +133,9 @@ public class PropertyConfigurator implements Configurator {
             hierarchy.setThreshold(OptionConverter.toLevel(thresholdStr, Level.ALL));
             LogLog.debug("Hierarchy threshold set to [" + hierarchy.getThreshold() + "].");
         }
-        //root
+        //配置根级类别
         configureRootCategory(properties, hierarchy);
-        //
+        //配置日志工厂
         configureLoggerFactory(properties);
         parseCatsAndRenderers(properties, hierarchy);
 
@@ -159,6 +161,7 @@ public class PropertyConfigurator implements Configurator {
         this.doConfigure(props, hierarchy);
     }
 
+    //解析配置文件
     @Override
     public void doConfigure(java.net.URL configURL, LoggerRepository hierarchy) {
         Properties props = new Properties();
@@ -166,16 +169,19 @@ public class PropertyConfigurator implements Configurator {
         InputStream istream = null;
         URLConnection uConn = null;
         try {
+            //获取URL连接
             uConn = configURL.openConnection();
+            //设置不使用缓存
             uConn.setUseCaches(false);
+            //获取连接的输入流
             istream = uConn.getInputStream();
+            //加载输入流的属性
             props.load(istream);
         } catch (Exception e) {
             if (e instanceof InterruptedIOException || e instanceof InterruptedException) {
                 Thread.currentThread().interrupt();
             }
-            LogLog.error("Could not read configuration file from URL [" + configURL
-                    + "].", e);
+            LogLog.error("Could not read configuration file from URL [" + configURL + "].", e);
             LogLog.error("Ignoring configuration file [" + configURL + "].");
             return;
         } finally {
@@ -217,12 +223,15 @@ public class PropertyConfigurator implements Configurator {
         }
     }
 
-
+    //配置根级类别
     void configureRootCategory(Properties props, LoggerRepository hierarchy) {
         String effectiveFrefix = ROOT_LOGGER_PREFIX;
+
+        //获取log4j.rootLogger属性值
         String value = OptionConverter.findAndSubst(ROOT_LOGGER_PREFIX, props);
 
         if (value == null) {
+            //获取log4j.rootCategory属性值
             value = OptionConverter.findAndSubst(ROOT_CATEGORY_PREFIX, props);
             effectiveFrefix = ROOT_CATEGORY_PREFIX;
         }
@@ -230,8 +239,10 @@ public class PropertyConfigurator implements Configurator {
         if (value == null) {
             LogLog.debug("Could not find root logger information. Is this OK?");
         } else {
+            //获取根级日志
             Logger root = hierarchy.getRootLogger();
             synchronized (root) {
+                //解析类型
                 parseCategory(props, root, effectiveFrefix, INTERNAL_ROOT_NAME, value);
             }
         }
@@ -337,7 +348,7 @@ public class PropertyConfigurator implements Configurator {
             LogLog.debug("Category " + loggerName + " set to " + logger.getLevel());
         }
 
-        // Begin by removing all existing appenders.
+        //移除所有输出器
         logger.removeAllAppenders();
 
         Appender appender;
@@ -348,6 +359,7 @@ public class PropertyConfigurator implements Configurator {
                 continue;
             }
             LogLog.debug("Parsing appender named \"" + appenderName + "\".");
+            //解析输出器
             appender = parseAppender(props, appenderName);
             if (appender != null) {
                 logger.addAppender(appender);

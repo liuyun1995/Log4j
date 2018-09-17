@@ -2,95 +2,34 @@ package com.liuyun.log4j;
 
 import com.liuyun.log4j.appender.Appender;
 import com.liuyun.log4j.appender.AsyncAppender;
-import com.liuyun.log4j.helpers.AppenderAttachableImpl;
 import com.liuyun.log4j.appender.net.SocketAppender;
+import com.liuyun.log4j.helpers.AppenderAttachableImpl;
+import com.liuyun.log4j.helpers.NullEnumeration;
 import com.liuyun.log4j.or.ObjectRenderer;
 import com.liuyun.log4j.spi.AppenderAttachable;
 import com.liuyun.log4j.spi.HierarchyEventListener;
-import com.liuyun.log4j.spi.LoggingEvent;
 import com.liuyun.log4j.spi.LoggerRepository;
-import com.liuyun.log4j.helpers.NullEnumeration;
+import com.liuyun.log4j.spi.LoggingEvent;
 
 import java.util.Enumeration;
 import java.util.MissingResourceException;
 import java.util.ResourceBundle;
 import java.util.Vector;
 
-
-/**
- * <font color="#AA2222"><b>This class has been deprecated and
- * replaced by the {@link Logger} <em>subclass</em></b></font>. It
- * will be kept around to preserve backward compatibility until mid
- * 2003.
- * <p>
- * <p><code>Logger</code> is a subclass of Category, i.e. it extends
- * Category. In other words, a logger <em>is</em> a category. Thus,
- * all operations that can be performed on a category can be
- * performed on a logger. Internally, whenever log4j is asked to
- * produce a Category object, it will instead produce a Logger
- * object. Log4j 1.2 will <em>never</em> produce Category objects but
- * only <code>Logger</code> instances. In order to preserve backward
- * compatibility, methods that previously accepted category objects
- * still continue to accept category objects.
- * <p>
- * <p>For example, the following are all legal and will work as
- * expected.
- * <p>
- * <pre>
- * &nbsp;&nbsp;&nbsp;// Deprecated form:
- * &nbsp;&nbsp;&nbsp;Category cat = Category.getInstance("foo.bar")
- *
- * &nbsp;&nbsp;&nbsp;// Preferred form for retrieving loggers:
- * &nbsp;&nbsp;&nbsp;Logger logger = Logger.getLogger("foo.bar")
- * </pre>
- * <p>
- * <p>The first form is deprecated and should be avoided.
- * <p>
- * <p><b>There is absolutely no need for new client code to use or
- * refer to the <code>Category</code> class.</b> Whenever possible,
- * please avoid referring to it or using it.
- * <p>
- * <p>See the <a href="../../../../manual.html">short manual</a> for an
- * introduction on this class.
- * <p>
- * See the document entitled <a href="http://www.qos.ch/logging/preparingFor13.html">preparing
- * for log4j 1.3</a> for a more detailed discussion.
- *
- * @author Ceki G&uuml;lc&uuml;
- * @author Anders Kristensen
- */
+//日志类型
 public class Category implements AppenderAttachable {
 
-    /**
-     The hierarchy where categories are attached to by default.
-     */
-    //static
-    //public
-    //final Hierarchy defaultHierarchy = new Hierarchy(new RootCategory(Level.DEBUG));
-
-    /**
-     * The fully qualified name(全限定名) of the Category class. See also the
-     * getFQCN method.
-     */
+    //日志类型全限定名
     private static final String FQCN = Category.class.getName();
-    /**
-     * The name of this category.
-     */
+    //日志类型名称
     protected String name;
-    /**
-     * The assigned level of this category.  The
-     * <code>level</code> variable need not be assigned a value in
-     * which case it is inherited form the hierarchy.
-     */
+    //日志级别
     volatile protected Level level;
-    /**
-     * The parent of this category. All categories have at least one
-     * ancestor which is the root category.
-     */
+    //父级日志类型
     volatile protected Category parent;
+    //资源绑定
     protected ResourceBundle resourceBundle;
-
-    // Categories need to know what Hierarchy they are in
+    //日志容器
     protected LoggerRepository repository;
     /**
      * Additivity is set to true by default, that is children inherit
@@ -104,104 +43,46 @@ public class Category implements AppenderAttachable {
     protected boolean additive = true;
     AppenderAttachableImpl aai;
 
-    /**
-     * This constructor created a new <code>Category</code> instance and
-     * sets its name.
-     * <p>
-     * <p>It is intended to be used by sub-classes only. You should not
-     * create categories directly.
-     *
-     * @param name The name of the category.
-     */
+
     protected Category(String name) {
         this.name = name;
     }
 
-    /**
-     * If the named category exists (in the default hierarchy) then it
-     * returns a reference to the category, otherwise it returns
-     * <code>null</code>.
-     *
-     * @since 0.8.5
-     * @deprecated Please use {@link LogManager#exists} instead.
-     */
     public static Logger exists(String name) {
         return LogManager.exists(name);
     }
 
-    /**
-     * Returns all the currently defined categories in the default
-     * hierarchy as an {@link java.util.Enumeration Enumeration}.
-     * <p>
-     * <p>The root category is <em>not</em> included in the returned
-     * {@link Enumeration}.
-     *
-     * @deprecated Please use {@link LogManager#getCurrentLoggers()} instead.
-     */
+    //获取当前类型
     public static Enumeration getCurrentCategories() {
         return LogManager.getCurrentLoggers();
     }
 
-    /**
-     * Return the default Hierarchy instance.
-     *
-     * @since 1.0
-     * @deprecated Please use {@link LogManager#getLoggerRepository()} instead.
-     */
+    //获取默认日志容器
     public static LoggerRepository getDefaultHierarchy() {
         return LogManager.getLoggerRepository();
     }
 
-    /**
-     * @deprecated Make sure to use {@link Logger#getLogger(String)} instead.
-     */
+    //根据名称获取类型实例
     public static Category getInstance(String name) {
         return LogManager.getLogger(name);
     }
 
-    /**
-     * @deprecated Please make sure to use {@link Logger#getLogger(Class)} instead.
-     */
+    //根据类型获取类型实例
     public static Category getInstance(Class clazz) {
         return LogManager.getLogger(clazz);
     }
 
-    /**
-     * @deprecated Please use {@link Logger#getRootLogger()} instead.
-     */
+    //获取根级日志类型
     public static final Category getRoot() {
         return LogManager.getRootLogger();
     }
 
-    /**
-     * Calling this method will <em>safely</em> close and remove all
-     * appenders in all the categories including root contained in the
-     * default hierachy.
-     * <p>
-     * <p>Some appenders such as {@link SocketAppender}
-     * and {@link AsyncAppender} need to be closed before the
-     * application exists. Otherwise, pending logging events might be
-     * lost.
-     * <p>
-     * <p>The <code>shutdown</code> method is careful to close nested
-     * appenders before closing regular appenders. This is allows
-     * configurations where a regular appender is attached to a category
-     * and again to a nested appender.
-     *
-     * @since 1.0
-     * @deprecated Please use {@link LogManager#shutdown()} instead.
-     */
+    //关闭日志
     public static void shutdown() {
         LogManager.shutdown();
     }
 
-    /**
-     * Add <code>newAppender</code> to the list of appenders of this
-     * Category instance.
-     * <p>
-     * <p>If <code>newAppender</code> is already in the list of
-     * appenders, then it won't be added again.
-     */
+    //添加输出器
     synchronized public void addAppender(Appender newAppender) {
         if (aai == null) {
             aai = new AppenderAttachableImpl();
@@ -229,20 +110,11 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Call the appenders in the hierrachy starting at
-     * <code>this</code>.  If no appenders could be found, emit a
-     * warning.
-     * <p>
-     * <p>This method calls all the appenders inherited from the
-     * hierarchy circumventing any evaluation of whether to log or not
-     * to log the particular log request.
-     *
-     * @param event the event to log.
-     */
+    //调用所有输出源
     public void callAppenders(LoggingEvent event) {
         int writes = 0;
 
+        //从子类型向上遍历
         for (Category c = this; c != null; c = c.parent) {
             // Protected against simultaneous call to addAppender, removeAppender,...
             synchronized (c) {
@@ -260,12 +132,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Close all attached appenders implementing the AppenderAttachable
-     * interface.
-     *
-     * @since 1.0
-     */
+    //关闭嵌套的输出器
     synchronized void closeNestedAppenders() {
         Enumeration enumeration = this.getAllAppenders();
         if (enumeration != null) {
@@ -278,148 +145,6 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Log a message object with the {@link Level#DEBUG DEBUG} level.
-     * <p>
-     * <p>This method first checks if this category is <code>DEBUG</code>
-     * enabled by comparing the level of this category with the {@link
-     * Level#DEBUG DEBUG} level. If this category is
-     * <code>DEBUG</code> enabled, then it converts the message object
-     * (passed as parameter) to a string by invoking the appropriate
-     * {@link ObjectRenderer}. It then proceeds to call all the
-     * registered appenders in this category and also higher in the
-     * hierarchy depending on the value of the additivity flag.
-     * <p>
-     * <p><b>WARNING</b> Note that passing a {@link Throwable} to this
-     * method will print the name of the <code>Throwable</code> but no
-     * stack trace. To print a stack trace use the {@link #debug(Object,
-     * Throwable)} form instead.
-     *
-     * @param message the message object to log.
-     */
-    public void debug(Object message) {
-        if (repository.isDisabled(Level.DEBUG_INT)) {
-            return;
-        }
-        if (Level.DEBUG.isGreaterOrEqual(this.getEffectiveLevel())) {
-            forcedLog(FQCN, Level.DEBUG, message, null);
-        }
-    }
-
-    /**
-     * Log a message object with the <code>DEBUG</code> level including
-     * the stack trace of the {@link Throwable} <code>t</code> passed as
-     * parameter.
-     * <p>
-     * <p>See {@link #debug(Object)} form for more detailed information.
-     *
-     * @param message the message object to log.
-     * @param t       the exception to log, including its stack trace.
-     */
-    public void debug(Object message, Throwable t) {
-        if (repository.isDisabled(Level.DEBUG_INT)) {
-            return;
-        }
-        if (Level.DEBUG.isGreaterOrEqual(this.getEffectiveLevel())) {
-            forcedLog(FQCN, Level.DEBUG, message, t);
-        }
-    }
-
-    /**
-     * Log a message object with the {@link Level#ERROR ERROR} Level.
-     * <p>
-     * <p>This method first checks if this category is <code>ERROR</code>
-     * enabled by comparing the level of this category with {@link
-     * Level#ERROR ERROR} Level. If this category is <code>ERROR</code>
-     * enabled, then it converts the message object passed as parameter
-     * to a string by invoking the appropriate {@link
-     * ObjectRenderer}. It proceeds to call all the
-     * registered appenders in this category and also higher in the
-     * hierarchy depending on the value of the additivity flag.
-     * <p>
-     * <p><b>WARNING</b> Note that passing a {@link Throwable} to this
-     * method will print the name of the <code>Throwable</code> but no
-     * stack trace. To print a stack trace use the {@link #error(Object,
-     * Throwable)} form instead.
-     *
-     * @param message the message object to log
-     */
-    public void error(Object message) {
-        if (repository.isDisabled(Level.ERROR_INT)) {
-            return;
-        }
-        if (Level.ERROR.isGreaterOrEqual(this.getEffectiveLevel())) {
-            forcedLog(FQCN, Level.ERROR, message, null);
-        }
-    }
-
-    /**
-     * Log a message object with the <code>ERROR</code> level including
-     * the stack trace of the {@link Throwable} <code>t</code> passed as
-     * parameter.
-     * <p>
-     * <p>See {@link #error(Object)} form for more detailed information.
-     *
-     * @param message the message object to log.
-     * @param t       the exception to log, including its stack trace.
-     */
-    public void error(Object message, Throwable t) {
-        if (repository.isDisabled(Level.ERROR_INT)) {
-            return;
-        }
-        if (Level.ERROR.isGreaterOrEqual(this.getEffectiveLevel())) {
-            forcedLog(FQCN, Level.ERROR, message, t);
-        }
-
-    }
-
-    /**
-     * Log a message object with the {@link Level#FATAL FATAL} Level.
-     * <p>
-     * <p>This method first checks if this category is <code>FATAL</code>
-     * enabled by comparing the level of this category with {@link
-     * Level#FATAL FATAL} Level. If the category is <code>FATAL</code>
-     * enabled, then it converts the message object passed as parameter
-     * to a string by invoking the appropriate
-     * {@link ObjectRenderer}. It
-     * proceeds to call all the registered appenders in this category and
-     * also higher in the hierarchy depending on the value of the
-     * additivity flag.
-     * <p>
-     * <p><b>WARNING</b> Note that passing a {@link Throwable} to this
-     * method will print the name of the Throwable but no stack trace. To
-     * print a stack trace use the {@link #fatal(Object, Throwable)} form
-     * instead.
-     *
-     * @param message the message object to log
-     */
-    public void fatal(Object message) {
-        if (repository.isDisabled(Level.FATAL_INT)) {
-            return;
-        }
-        if (Level.FATAL.isGreaterOrEqual(this.getEffectiveLevel())) {
-            forcedLog(FQCN, Level.FATAL, message, null);
-        }
-    }
-
-    /**
-     * Log a message object with the <code>FATAL</code> level including
-     * the stack trace of the {@link Throwable} <code>t</code> passed as
-     * parameter.
-     * <p>
-     * <p>See {@link #fatal(Object)} for more detailed information.
-     *
-     * @param message the message object to log.
-     * @param t       the exception to log, including its stack trace.
-     */
-    public void fatal(Object message, Throwable t) {
-        if (repository.isDisabled(Level.FATAL_INT)) {
-            return;
-        }
-        if (Level.FATAL.isGreaterOrEqual(this.getEffectiveLevel())) {
-            forcedLog(FQCN, Level.FATAL, message, t);
-        }
-    }
 
     /**
      * This method creates a new logging event and logs the event
@@ -445,15 +170,8 @@ public class Category implements AppenderAttachable {
         this.additive = additive;
     }
 
-    /**
-     * Get the appenders contained in this category as an {@link
-     * Enumeration}. If no appenders can be found, then a {@link NullEnumeration}
-     * is returned.
-     *
-     * @return Enumeration An enumeration of the appenders in this category.
-     */
-    synchronized
-    public Enumeration getAllAppenders() {
+    //获取所有输出源
+    synchronized public Enumeration getAllAppenders() {
         if (aai == null) {
             return NullEnumeration.getInstance();
         } else {
@@ -461,177 +179,80 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Look for the appender named as <code>name</code>.
-     * <p>
-     * <p>Return the appender with that name if in the list. Return
-     * <code>null</code> otherwise.
-     */
-    synchronized
-    public Appender getAppender(String name) {
+    //获取指定名称输出源
+    synchronized public Appender getAppender(String name) {
         if (aai == null || name == null) {
             return null;
         }
-
         return aai.getAppender(name);
     }
 
-    /**
-     * @author 张明明
-     * @date 2016年5月9日 上午11:51:04
-     * @Description:获得实际的日志等级 从这个类别开始，搜索类层次结构非空水平，并返回。否则，返回的水平根类。
-     * Starting from this category, search the category hierarchy for a
-     * non-null level and return it. Otherwise, return the level of the root category.
-     * The Category class is designed so that this method executes as quickly as possible.
-     */
+    //获取有效的日志级别
     public Level getEffectiveLevel() {
         for (Category c = this; c != null; c = c.parent) {
             if (c.level != null) {
                 return c.level;
             }
         }
-        return null; // If reached will cause an NullPointerException.
+        return null;
     }
 
-    /**
-     * @deprecated Please use the the {@link #getEffectiveLevel} method
-     * instead.
-     */
+    //获取有效的日志级别
     public Priority getChainedPriority() {
         for (Category c = this; c != null; c = c.parent) {
             if (c.level != null) {
                 return c.level;
             }
         }
-        return null; // If reached will cause an NullPointerException.
+        return null;
     }
 
-    /**
-     * Return the the {@link Hierarchy} where this <code>Category</code>
-     * instance is attached.
-     *
-     * @since 1.1
-     * @deprecated Please use {@link #getLoggerRepository} instead.
-     */
+    //获取日志容器
     public LoggerRepository getHierarchy() {
         return repository;
     }
 
-    /**
-     * Only the Hiearchy class can set the hiearchy of a
-     * category. Default package access is MANDATORY here.
-     */
+    //设置日志容器
     final void setHierarchy(LoggerRepository repository) {
         this.repository = repository;
     }
 
-    /**
-     * Return the the {@link LoggerRepository} where this
-     * <code>Category</code> is attached.
-     *
-     * @since 1.2
-     */
+    //获取日志容器
     public LoggerRepository getLoggerRepository() {
         return repository;
     }
 
-    /**
-     * Return the category name.
-     */
+    //获取类型名称
     public final String getName() {
         return name;
     }
 
-    /**
-     * Returns the parent of this category. Note that the parent of a
-     * given category may change during the lifetime of the category.
-     * <p>
-     * <p>The root category will return <code>null</code>.
-     *
-     * @since 1.2
-     */
-    final
-    public Category getParent() {
+    //获取父级类型
+    public final Category getParent() {
         return this.parent;
     }
 
-    /**
-     * Returns the assigned {@link Level}, if any, for this Category.
-     *
-     * @return Level - the assigned Level, can be <code>null</code>.
-     */
-    final
-    public Level getLevel() {
+    //获取日志级别
+    public final Level getLevel() {
         return this.level;
     }
 
-    /**
-     Log a message object with the {@link Level#INFO INFO} Level.
-
-     <p>This method first checks if this category is <code>INFO</code>
-     enabled by comparing the level of this category with {@link
-    Level#INFO INFO} Level. If the category is <code>INFO</code>
-     enabled, then it converts the message object passed as parameter
-     to a string by invoking the appropriate
-     {@link ObjectRenderer}. It
-     proceeds to call all the registered appenders in this category and
-     also higher in the hierarchy depending on the value of the
-     additivity flag.
-
-     <p><b>WARNING</b> Note that passing a {@link Throwable} to this
-     method will print the name of the Throwable but no stack trace. To
-     print a stack trace use the {@link #info(Object, Throwable)} form
-     instead.
-
-     @param message the message object to log */
-
-    /**
-     * Set the level of this Category. If you are passing any of
-     * <code>Level.DEBUG</code>, <code>Level.INFO</code>,
-     * <code>Level.WARN</code>, <code>Level.ERROR</code>,
-     * <code>Level.FATAL</code> as a parameter, you need to case them as
-     * Level.
-     * <p>
-     * <p>As in <pre> &nbsp;&nbsp;&nbsp;logger.setLevel((Level) Level.DEBUG); </pre>
-     * <p>
-     * <p>
-     * <p>Null values are admitted.
-     */
+    //设置日志级别
     public void setLevel(Level level) {
         this.level = level;
     }
 
-    /**
-     * @deprecated Please use {@link #getLevel} instead.
-     */
-    final
-    public Level getPriority() {
+    //获取日志级别
+    public final Level getPriority() {
         return this.level;
     }
 
-    /**
-     * Set the level of this Category.
-     * <p>
-     * <p>Null values are admitted.
-     *
-     * @deprecated Please use {@link #setLevel} instead.
-     */
+    //设置日志级别
     public void setPriority(Priority priority) {
         this.level = (Level) priority;
     }
 
-    /**
-     * Return the <em>inherited</em> {@link ResourceBundle} for this
-     * category.
-     * <p>
-     * <p>This method walks the hierarchy to find the appropriate
-     * resource bundle. It will return the resource bundle attached to
-     * the closest ancestor of this category, much like the way
-     * priorities are searched. In case there is no bundle in the
-     * hierarchy then <code>null</code> is returned.
-     *
-     * @since 0.9.0
-     */
+    //获取绑定的资源
     public ResourceBundle getResourceBundle() {
         for (Category c = this; c != null; c = c.parent) {
             if (c.resourceBundle != null) {
@@ -642,25 +263,12 @@ public class Category implements AppenderAttachable {
         return null;
     }
 
-    /**
-     * Set the resource bundle to be used with localized logging
-     * methods {@link #l7dlog(Priority, String, Throwable)} and {@link
-     * #l7dlog(Priority, String, Object[], Throwable)}.
-     *
-     * @since 0.8.4
-     */
+    //设置绑定的资源
     public void setResourceBundle(ResourceBundle bundle) {
         resourceBundle = bundle;
     }
 
-    /**
-     * Returns the string resource coresponding to <code>key</code> in
-     * this category's inherited resource bundle. See also {@link
-     * #getResourceBundle}.
-     * <p>
-     * <p>If the resource cannot be found, then an {@link #error error}
-     * message will be logged complaining about the missing resource.
-     */
+    //获取绑定资源字符串
     protected String getResourceBundleString(String key) {
         ResourceBundle rb = getResourceBundle();
         // This is one of the rare cases where we can use logging in order
@@ -681,12 +289,6 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * @param message
-     * @author 张明明
-     * @date 2016年5月9日 上午11:49:21
-     * @Description:
-     */
     public void info(Object message) {
         if (repository.isDisabled(Level.INFO_INT)) {
             return;
@@ -699,16 +301,6 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Log a message object with the <code>INFO</code> level including
-     * the stack trace of the {@link Throwable} <code>t</code> passed as
-     * parameter.
-     * <p>
-     * <p>See {@link #info(Object)} for more detailed information.
-     *
-     * @param message the message object to log.
-     * @param t       the exception to log, including its stack trace.
-     */
     public void info(Object message, Throwable t) {
         if (repository.isDisabled(Level.INFO_INT)) {
             return;
@@ -718,9 +310,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Is the appender passed as parameter attached to this category?
-     */
+    //是否可附着的
     public boolean isAttached(Appender appender) {
         if (appender == null || aai == null) {
             return false;
@@ -729,40 +319,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Check whether this category is enabled for the <code>DEBUG</code>
-     * Level.
-     * <p>
-     * <p> This function is intended to lessen the computational cost of
-     * disabled log debug statements.
-     * <p>
-     * <p> For some <code>cat</code> Category object, when you write,
-     * <pre>
-     *      cat.debug("This is entry number: " + i );
-     *  </pre>
-     * <p>
-     * <p>You incur the cost constructing the message, concatenatiion in
-     * this case, regardless of whether the message is logged or not.
-     * <p>
-     * <p>If you are worried about speed, then you should write
-     * <pre>
-     * 	 if(cat.isDebugEnabled()) {
-     * 	   cat.debug("This is entry number: " + i );
-     *     }
-     *  </pre>
-     * <p>
-     * <p>This way you will not incur the cost of parameter
-     * construction if debugging is disabled for <code>cat</code>. On
-     * the other hand, if the <code>cat</code> is debug enabled, you
-     * will incur the cost of evaluating whether the category is debug
-     * enabled twice. Once in <code>isDebugEnabled</code> and once in
-     * the <code>debug</code>.  This is an insignificant overhead
-     * since evaluating a category takes about 1%% of the time it
-     * takes to actually log.
-     *
-     * @return boolean - <code>true</code> if this category is debug
-     * enabled, <code>false</code> otherwise.
-     */
+
     public boolean isDebugEnabled() {
         if (repository.isDisabled(Level.DEBUG_INT)) {
             return false;
@@ -770,14 +327,6 @@ public class Category implements AppenderAttachable {
         return Level.DEBUG.isGreaterOrEqual(this.getEffectiveLevel());
     }
 
-    /**
-     * Check whether this category is enabled for a given {@link
-     * Level} passed as parameter.
-     * <p>
-     * See also {@link #isDebugEnabled}.
-     *
-     * @return boolean True if this category is enabled for <code>level</code>.
-     */
     public boolean isEnabledFor(Priority level) {
         if (repository.isDisabled(level.level)) {
             return false;
@@ -785,13 +334,6 @@ public class Category implements AppenderAttachable {
         return level.isGreaterOrEqual(this.getEffectiveLevel());
     }
 
-    /**
-     * Check whether this category is enabled for the info Level.
-     * See also {@link #isDebugEnabled}.
-     *
-     * @return boolean - <code>true</code> if this category is enabled
-     * for level info, <code>false</code> otherwise.
-     */
     public boolean isInfoEnabled() {
         if (repository.isDisabled(Level.INFO_INT)) {
             return false;
@@ -799,14 +341,7 @@ public class Category implements AppenderAttachable {
         return Level.INFO.isGreaterOrEqual(this.getEffectiveLevel());
     }
 
-    /**
-     * Log a localized message. The user supplied parameter
-     * <code>key</code> is replaced by its localized version from the
-     * resource bundle.
-     *
-     * @see #setResourceBundle
-     * @since 0.8.4
-     */
+
     public void l7dlog(Priority priority, String key, Throwable t) {
         if (repository.isDisabled(priority.level)) {
             return;
@@ -822,15 +357,6 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Log a localized and parameterized message. First, the user
-     * supplied <code>key</code> is searched in the resource
-     * bundle. Next, the resulting pattern is formatted using
-     * {@link java.text.MessageFormat#format(String, Object[])} method with the
-     * user supplied object array <code>params</code>.
-     *
-     * @since 0.8.4
-     */
     public void l7dlog(Priority priority, String key, Object[] params, Throwable t) {
         if (repository.isDisabled(priority.level)) {
             return;
@@ -847,9 +373,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * This generic form is intended to be used by wrappers.
-     */
+    //打印日志方法
     public void log(Priority priority, Object message, Throwable t) {
         if (repository.isDisabled(priority.level)) {
             return;
@@ -859,9 +383,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * This generic form is intended to be used by wrappers.
-     */
+    //打印日志方法
     public void log(Priority priority, Object message) {
         if (repository.isDisabled(priority.level)) {
             return;
@@ -871,15 +393,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * This is the most generic printing method. It is intended to be
-     * invoked by <b>wrapper</b> classes.
-     *
-     * @param callerFQCN The wrapper class' fully qualified class name.
-     * @param level      The level of the logging request.
-     * @param message    The message of the logging request.
-     * @param t          The throwable of the logging request, may be null.
-     */
+    //打印日志方法
     public void log(String callerFQCN, Priority level, Object message, Throwable t) {
         if (repository.isDisabled(level.level)) {
             return;
@@ -889,14 +403,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * LoggerRepository forgot the fireRemoveAppenderEvent method,
-     * if using the stock Hierarchy implementation, then call its fireRemove.
-     * Custom repositories can implement HierarchyEventListener if they
-     * want remove notifications.
-     *
-     * @param appender appender, may be null.
-     */
+    //移除删除输出源事件
     private void fireRemoveAppenderEvent(final Appender appender) {
         if (appender != null) {
             if (repository instanceof Hierarchy) {
@@ -907,12 +414,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Remove all previously added appenders from this Category
-     * instance.
-     * <p>
-     * <p>This is useful when re-reading configuration information.
-     */
+    //移除全部输出源
     synchronized public void removeAllAppenders() {
         if (aai != null) {
             Vector appenders = new Vector();
@@ -927,11 +429,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Remove the appender passed as parameter form the list of appenders.
-     *
-     * @since 0.8.2
-     */
+    //移除指定输出源
     synchronized public void removeAppender(Appender appender) {
         if (appender == null || aai == null) {
             return;
@@ -943,12 +441,7 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Remove the appender with the name passed as parameter form the
-     * list of appenders.
-     *
-     * @since 0.8.2
-     */
+    //移除指定名称输出源
     synchronized public void removeAppender(String name) {
         if (name == null || aai == null) {
             return;
@@ -960,46 +453,74 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    /**
-     * Log a message object with the {@link Level#WARN WARN} Level.
-     * <p>
-     * <p>This method first checks if this category is <code>WARN</code>
-     * enabled by comparing the level of this category with {@link
-     * Level#WARN WARN} Level. If the category is <code>WARN</code>
-     * enabled, then it converts the message object passed as parameter
-     * to a string by invoking the appropriate
-     * {@link ObjectRenderer}. It
-     * proceeds to call all the registered appenders in this category and
-     * also higher in the hieararchy depending on the value of the
-     * additivity flag.
-     * <p>
-     * <p><b>WARNING</b> Note that passing a {@link Throwable} to this
-     * method will print the name of the Throwable but no stack trace. To
-     * print a stack trace use the {@link #warn(Object, Throwable)} form
-     * instead.  <p>
-     *
-     * @param message the message object to log.
-     */
+    //-------------------------------------------------打印不同级别的日志----------------------------------------------
+
+    public void debug(Object message) {
+        if (repository.isDisabled(Level.DEBUG_INT)) {
+            return;
+        }
+        if (Level.DEBUG.isGreaterOrEqual(this.getEffectiveLevel())) {
+            forcedLog(FQCN, Level.DEBUG, message, null);
+        }
+    }
+
+
+    public void debug(Object message, Throwable t) {
+        if (repository.isDisabled(Level.DEBUG_INT)) {
+            return;
+        }
+        if (Level.DEBUG.isGreaterOrEqual(this.getEffectiveLevel())) {
+            forcedLog(FQCN, Level.DEBUG, message, t);
+        }
+    }
+
+
+    public void error(Object message) {
+        if (repository.isDisabled(Level.ERROR_INT)) {
+            return;
+        }
+        if (Level.ERROR.isGreaterOrEqual(this.getEffectiveLevel())) {
+            forcedLog(FQCN, Level.ERROR, message, null);
+        }
+    }
+
+    public void error(Object message, Throwable t) {
+        if (repository.isDisabled(Level.ERROR_INT)) {
+            return;
+        }
+        if (Level.ERROR.isGreaterOrEqual(this.getEffectiveLevel())) {
+            forcedLog(FQCN, Level.ERROR, message, t);
+        }
+
+    }
+
+    public void fatal(Object message) {
+        if (repository.isDisabled(Level.FATAL_INT)) {
+            return;
+        }
+        if (Level.FATAL.isGreaterOrEqual(this.getEffectiveLevel())) {
+            forcedLog(FQCN, Level.FATAL, message, null);
+        }
+    }
+
+    public void fatal(Object message, Throwable t) {
+        if (repository.isDisabled(Level.FATAL_INT)) {
+            return;
+        }
+        if (Level.FATAL.isGreaterOrEqual(this.getEffectiveLevel())) {
+            forcedLog(FQCN, Level.FATAL, message, t);
+        }
+    }
+
     public void warn(Object message) {
         if (repository.isDisabled(Level.WARN_INT)) {
             return;
         }
-
         if (Level.WARN.isGreaterOrEqual(this.getEffectiveLevel())) {
             forcedLog(FQCN, Level.WARN, message, null);
         }
     }
 
-    /**
-     * Log a message with the <code>WARN</code> level including the
-     * stack trace of the {@link Throwable} <code>t</code> passed as
-     * parameter.
-     * <p>
-     * <p>See {@link #warn(Object)} for more detailed information.
-     *
-     * @param message the message object to log.
-     * @param t       the exception to log, including its stack trace.
-     */
     public void warn(Object message, Throwable t) {
         if (repository.isDisabled(Level.WARN_INT)) {
             return;
@@ -1008,4 +529,5 @@ public class Category implements AppenderAttachable {
             forcedLog(FQCN, Level.WARN, message, t);
         }
     }
+
 }

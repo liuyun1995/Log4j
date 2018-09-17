@@ -1,15 +1,10 @@
 package com.liuyun.log4j;
 
-/**
- * CategoryKey is a wrapper for String that apparently accellerated
- * hash table lookup in early JVM's.
- *
- * @author Ceki G&uuml;lc&uuml;
- */
+//日志类型键
 class CategoryKey {
 
-    String name;
-    int hashCache;
+    String name;    //日志对象名称
+    int hashCache;  //日志对象哈希吗
 
     CategoryKey(String name) {
         this.name = name;

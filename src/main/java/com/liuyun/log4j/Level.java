@@ -81,11 +81,12 @@ public class Level extends Priority implements Serializable {
         }
     }
 
-    //根据名称获取水平
+    //根据名称获取日志级别
     public static Level toLevel(String sArg, Level defaultLevel) {
         if (sArg == null) {
             return defaultLevel;
         }
+        //将级别名转成大写
         String s = sArg.toUpperCase();
 
         if (s.equals(ALL_NAME)) {

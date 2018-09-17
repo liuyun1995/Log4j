@@ -1,20 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.liuyun.log4j.helpers;
 
 import com.liuyun.log4j.appender.Appender;
@@ -23,30 +6,16 @@ import com.liuyun.log4j.spi.LoggingEvent;
 import java.util.Enumeration;
 import java.util.Vector;
 
-/**
- * A straightforward implementation of the {@link AppenderAttachable}
- * interface.
- *
- * @author Ceki G&uuml;lc&uuml;
- * @since version 0.9.1
- */
+//可附着输出源实现类
 public class AppenderAttachableImpl implements AppenderAttachable {
 
-    /**
-     * Array of appenders.
-     */
-    protected Vector appenderList;
+    protected Vector appenderList;    //输出源列表
 
-    /**
-     * Attach an appender. If the appender is already in the list in
-     * won't be added again.
-     */
+    //添加输出源
     public void addAppender(Appender newAppender) {
-        // Null values for newAppender parameter are strictly forbidden.
         if (newAppender == null) {
             return;
         }
-
         if (appenderList == null) {
             appenderList = new Vector(1);
         }
@@ -55,13 +24,12 @@ public class AppenderAttachableImpl implements AppenderAttachable {
         }
     }
 
-    /**
-     * Call the <code>doAppend</code> method on all attached appenders.
-     */
+    //将日志事件输出到所有输出源
     public int appendLoopOnAppenders(LoggingEvent event) {
         int size = 0;
         Appender appender;
 
+        //遍历所有输出器，执行日志事件的输出
         if (appenderList != null) {
             size = appenderList.size();
             for (int i = 0; i < size; i++) {
@@ -73,12 +41,7 @@ public class AppenderAttachableImpl implements AppenderAttachable {
     }
 
 
-    /**
-     * Get all attached appenders as an Enumeration. If there are no
-     * attached appenders <code>null</code> is returned.
-     *
-     * @return Enumeration An enumeration of attached appenders.
-     */
+    //获取所有输出源
     public Enumeration getAllAppenders() {
         if (appenderList == null) {
             return null;
@@ -87,12 +50,7 @@ public class AppenderAttachableImpl implements AppenderAttachable {
         }
     }
 
-    /**
-     * Look for an attached appender named as <code>name</code>.
-     *
-     * <p>Return the appender with that name if in the list. Return null
-     * otherwise.
-     */
+    //根据名称获取输出源
     public Appender getAppender(String name) {
         if (appenderList == null || name == null) {
             return null;
@@ -110,12 +68,7 @@ public class AppenderAttachableImpl implements AppenderAttachable {
     }
 
 
-    /**
-     * Returns <code>true</code> if the specified appender is in the
-     * list of attached appenders, <code>false</code> otherwise.
-     *
-     * @since 1.2
-     */
+    //输出源是否可以附着
     public boolean isAttached(Appender appender) {
         if (appenderList == null || appender == null) {
             return false;
@@ -132,10 +85,7 @@ public class AppenderAttachableImpl implements AppenderAttachable {
         return false;
     }
 
-
-    /**
-     * Remove and close all previously attached appenders.
-     */
+    //移除全部输出源
     public void removeAllAppenders() {
         if (appenderList != null) {
             int len = appenderList.size();
@@ -148,11 +98,7 @@ public class AppenderAttachableImpl implements AppenderAttachable {
         }
     }
 
-
-    /**
-     * Remove the appender passed as parameter form the list of attached
-     * appenders.
-     */
+    //移除指定输出源
     public void removeAppender(Appender appender) {
         if (appender == null || appenderList == null) {
             return;
@@ -160,11 +106,7 @@ public class AppenderAttachableImpl implements AppenderAttachable {
         appenderList.removeElement(appender);
     }
 
-
-    /**
-     * Remove the appender with the name passed as parameter form the
-     * list of appenders.
-     */
+    //移除指定名称输出源
     public void removeAppender(String name) {
         if (name == null || appenderList == null) {
             return;

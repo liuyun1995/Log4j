@@ -50,9 +50,11 @@ public class LogManager {
     static private Object guard = null;
     static private RepositorySelector repositorySelector;
 
+    //log4j的入口
     static {
         //记录日志的等级
         Hierarchy h = new Hierarchy(new RootLogger(Level.DEBUG));
+        //新建日志容器选择器
         repositorySelector = new DefaultRepositorySelector(h);
 
         /** Search for the properties file log4j.properties in the CLASSPATH.  */
@@ -61,31 +63,28 @@ public class LogManager {
         // if there is no default init override, then get the resource
         // specified by the user or the default config file.
         if (override == null || "false".equalsIgnoreCase(override)) {
-
             //获取log4j.configuration文件
             String configurationOptionStr = OptionConverter.getSystemProperty(DEFAULT_CONFIGURATION_KEY, null);
-
             //获取log4j.configuratorClass文件
             String configuratorClassName = OptionConverter.getSystemProperty(CONFIGURATOR_CLASS_KEY, null);
 
             URL url = null;
 
-            // if the user has not specified the log4j.configuration
-            // property, we search first for the file "log4j.xml" and then
-            // "log4j.properties"
+            //若log4j.configuration文件不存在
             if (configurationOptionStr == null) {
-                //获取log4j.xml文件
+                //先读取log4j.xml文件
                 url = Loader.getResource(DEFAULT_XML_CONFIGURATION_FILE);
-                //获取log4j.properties文件
+                //若log4j.xml文件为空，则读取log4j.properties文件
                 if (url == null) {
                     url = Loader.getResource(DEFAULT_CONFIGURATION_FILE);
                 }
+            //若log4j.configuration文件存在
             } else {
                 try {
+                    //新建URL对象
                     url = new URL(configurationOptionStr);
                 } catch (MalformedURLException ex) {
-                    // so, resource is not a URL:
-                    // attempt to get the resource from the class path
+                    //若该资源不是URL，则尝试从类路径下获取
                     url = Loader.getResource(configurationOptionStr);
                 }
             }
@@ -159,12 +158,7 @@ public class LogManager {
         return msg.indexOf("org.apache.catalina.loader.WebappClassLoader.stop") != -1;
     }
 
-    /**
-     * @return
-     * @author 张明明
-     * @date 2016年5月7日 下午4:15:17
-     * @Description: 返回Logger对象的容器，为控制台或磁盘文件。
-     */
+    //获取日志对象容器
     public static LoggerRepository getLoggerRepository() {
         if (repositorySelector == null) {
             repositorySelector = new DefaultRepositorySelector(new NOPLoggerRepository());
@@ -180,69 +174,45 @@ public class LogManager {
         return repositorySelector.getLoggerRepository();
     }
 
-    /**
-     * Retrieve the appropriate root logger.
-     */
+    //获取根级日志对象
     public static Logger getRootLogger() {
-        // Delegate the actual manufacturing of the logger to the logger repository.
         return getLoggerRepository().getRootLogger();
     }
 
-    /**
-     Retrieve the appropriate {@link Logger} instance.
-     */
-    // Delegate the actual manufacturing of the logger to the logger repository.
-
-    /**
-     * @param name
-     * @return
-     * @author 张明明
-     * @date 2016年5月7日 下午5:18:47
-     * @Description:
-     */
+    //根据名称获取日志对象
     public static Logger getLogger(final String name) {
         return getLoggerRepository().getLogger(name);
     }
 
-    /**
-     Retrieve the appropriate {@link Logger} instance.
-     */
-    /**
-     * Delegate  代理，委托。。。为代表
-     *
-     * @param clazz
-     * @return
-     * @author 张明明
-     * @date 2016年5月7日 下午4:12:48
-     * @Description:委托正真的创建logger的动作。 Delegate  the actual manufacturing of the logger to the logger repository.
-     */
+    //根据类型获取日志对象
     public static Logger getLogger(final Class clazz) {
         return getLoggerRepository().getLogger(clazz.getName());
     }
 
-
-    /**
-     * Retrieve the appropriate {@link Logger} instance.
-     */
+    //根据名称和工厂获取日志对象
     public static Logger getLogger(final String name, final LoggerFactory factory) {
-        // Delegate the actual manufacturing of the logger to the logger repository.
         return getLoggerRepository().getLogger(name, factory);
     }
 
+    //是否存在对应的日志对象
     public static Logger exists(final String name) {
         return getLoggerRepository().exists(name);
     }
 
+    //获取当前日志对象
     public static Enumeration getCurrentLoggers() {
         return getLoggerRepository().getCurrentLoggers();
     }
 
+    //关闭日志
     public static void shutdown() {
         getLoggerRepository().shutdown();
     }
 
+    //重置配置信息
     public static void resetConfiguration() {
         getLoggerRepository().resetConfiguration();
     }
+
 }
 

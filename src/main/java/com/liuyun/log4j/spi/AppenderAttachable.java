@@ -3,6 +3,7 @@ package com.liuyun.log4j.spi;
 import com.liuyun.log4j.appender.Appender;
 import java.util.Enumeration;
 
+//可附着输出源的
 public interface AppenderAttachable {
 
 	//添加输出源
