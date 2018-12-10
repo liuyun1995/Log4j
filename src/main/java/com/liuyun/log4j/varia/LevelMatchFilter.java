@@ -16,7 +16,6 @@ public class LevelMatchFilter extends Filter {
 
     Level levelToMatch;
 
-
     public void setLevelToMatch(String level) {
         levelToMatch = OptionConverter.toLevel(level, null);
     }

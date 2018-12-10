@@ -28,36 +28,22 @@ public class XMLLayout extends Layout {
         return locationInfo;
     }
 
-    /**
-     * Sets whether MDC key-value pairs should be output, default false.
-     *
-     * @param flag new value.
-     * @since 1.2.15
-     */
+    //设置属性
     public void setProperties(final boolean flag) {
         properties = flag;
     }
 
-    /**
-     * Gets whether MDC key-value pairs should be output.
-     *
-     * @return true if MDC key-value pairs are output.
-     * @since 1.2.15
-     */
+    //获取属性
     public boolean getProperties() {
         return properties;
     }
 
-    /**
-     * No options to activate.
-     */
+    //激活操作
     public void activateOptions() {
     }
 
 
-    /**
-     * Formats a {@link LoggingEvent} in conformance with the log4j.dtd.
-     */
+    //格式化方法
     public String format(final LoggingEvent event) {
 
         // Reset working buffer. If the buffer is too large, then we need a new
@@ -142,11 +128,9 @@ public class XMLLayout extends Layout {
         return buf.toString();
     }
 
-    /**
-     * The XMLLayout prints and does not ignore exceptions. Hence the
-     * return value <code>false</code>.
-     */
+    //是否忽略异常
     public boolean ignoresThrowable() {
         return false;
     }
+
 }

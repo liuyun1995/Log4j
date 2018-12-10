@@ -16,34 +16,25 @@ public class ThrowableInformation implements java.io.Serializable {
         this.throwable = throwable;
     }
 
-    /**
-     * Create a new instance.
-     *
-     * @param throwable throwable, may not be null.
-     * @param category  category used to obtain ThrowableRenderer, may be null.
-     * @since 1.2.16
-     */
+    //构造器
     public ThrowableInformation(Throwable throwable, Category category) {
         this.throwable = throwable;
         this.category = category;
     }
 
-    /**
-     * Create new instance.
-     *
-     * @param r String representation of throwable.
-     * @since 1.2.15
-     */
+    //构造器
     public ThrowableInformation(final String[] r) {
         if (r != null) {
             rep = (String[]) r.clone();
         }
     }
 
+    //获取异常
     public Throwable getThrowable() {
         return throwable;
     }
 
+    //获取异常字符串数组
     public synchronized String[] getThrowableStrRep() {
         if (rep == null) {
             ThrowableRenderer renderer = null;
@@ -61,6 +52,7 @@ public class ThrowableInformation implements java.io.Serializable {
         }
         return (String[]) rep.clone();
     }
+
 }
 
 

@@ -4,7 +4,7 @@ import com.liuyun.log4j.Level;
 import com.liuyun.log4j.spi.Filter;
 import com.liuyun.log4j.spi.LoggingEvent;
 
-//级别分类过滤器
+//日志级别分类过滤器
 public class LevelRangeFilter extends Filter {
 
     /**

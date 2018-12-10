@@ -10,6 +10,7 @@ import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.Map;
 import java.util.Set;
+
 import com.liuyun.log4j.Level;
 import com.liuyun.log4j.Category;
 import com.liuyun.log4j.MDC;
@@ -18,22 +19,7 @@ import com.liuyun.log4j.Priority;
 import com.liuyun.log4j.helpers.Loader;
 import com.liuyun.log4j.helpers.LogLog;
 
-// Contributors:   Nelson Minar <nelson@monkey.org>
-//                 Wolf Siberski
-//                 Anders Kristensen <akristensen@dynamicsoft.com>
-
-/**
- * The internal representation of logging events. When an affirmative
- * decision is made to log then a <code>LoggingEvent</code> instance
- * is created. This instance is passed around to the different log4j
- * components.
- *
- * <p>This class is of concern to those wishing to extend log4j.
- *
- * @author Ceki G&uuml;lc&uuml;
- * @author James P. Cakalic
- * @since 0.8.2
- */
+//日志事件
 public class LoggingEvent implements java.io.Serializable {
 
     private static long startTime = System.currentTimeMillis();
@@ -43,39 +29,13 @@ public class LoggingEvent implements java.io.Serializable {
      */
     transient public final String fqnOfCategoryClass;
 
-    /**
-     * The category of the logging event. This field is not serialized
-     * for performance reasons.
-     *
-     * <p>It is set by the LoggingEvent constructor or set by a remote
-     * entity after deserialization.
-     *
-     * @deprecated This field will be marked as private or be completely
-     * removed in future releases. Please do not use it.
-     */
+    //日志类
     transient private Category logger;
 
-    /**
-     * <p>The category (logger) name.
-     *
-     * @deprecated This field will be marked as private in future
-     * releases. Please do not access it directly. Use the {@link
-     * #getLoggerName} method instead.
-     */
+    //日志名
     final public String categoryName;
 
-    /**
-     * Level of logging event. Level cannot be serializable because it
-     * is a flyweight.  Due to its special seralization it cannot be
-     * declared final either.
-     *
-     * <p> This field should not be accessed directly. You shoud use the
-     * {@link #getLevel} method instead.
-     *
-     * @deprecated This field will be marked as private in future
-     * releases. Please do not access it directly. Use the {@link
-     * #getLevel} method instead.
-     */
+    //日志事件水平
     transient public Priority level;
 
     /**
@@ -105,40 +65,25 @@ public class LoggingEvent implements java.io.Serializable {
      */
     private boolean mdcCopyLookupRequired = true;
 
-    /**
-     * The application supplied message of logging event.
-     */
+    //日志事件消息
     transient private Object message;
 
-    /**
-     * The application supplied message rendered through the log4j
-     * objet rendering mechanism.
-     */
+    //渲染消息
     private String renderedMessage;
 
-    /**
-     * The name of thread in which this logging event was generated.
-     */
+    //线程名
     private String threadName;
 
-
-    /**
-     * This
-     * variable contains information about this event's throwable
-     */
+    //异常信息
     private ThrowableInformation throwableInfo;
 
-    /**
-     * The number of milliseconds elapsed from 1/1/1970 until logging event
-     * was created.
-     */
+    //日志事件时间戳
     public final long timeStamp;
-    /**
-     * Location information for the caller.
-     */
+
+    //调用者位置信息
     private LocationInfo locationInfo;
 
-    // Serialization
+    //序列化ID
     static final long serialVersionUID = -868428216207166145L;
 
     static final Integer[] PARAM_ARRAY = new Integer[1];
@@ -146,18 +91,7 @@ public class LoggingEvent implements java.io.Serializable {
     static final Class[] TO_LEVEL_PARAMS = new Class[]{int.class};
     static final Hashtable methodCache = new Hashtable(3); // use a tiny table
 
-    /**
-     * Instantiate a LoggingEvent from the supplied parameters.
-     *
-     * <p>Except {@link #timeStamp} all the other fields of
-     * <code>LoggingEvent</code> are filled when actually needed.
-     * <p>
-     *
-     * @param logger    The logger generating this event.
-     * @param level     The level of this event.
-     * @param message   The message of this event.
-     * @param throwable The throwable of this event.
-     */
+    //构造器
     public LoggingEvent(String fqnOfCategoryClass, Category logger,
                         Priority level, Object message, Throwable throwable) {
         this.fqnOfCategoryClass = fqnOfCategoryClass;
@@ -171,19 +105,7 @@ public class LoggingEvent implements java.io.Serializable {
         timeStamp = System.currentTimeMillis();
     }
 
-    /**
-     * Instantiate a LoggingEvent from the supplied parameters.
-     *
-     * <p>Except {@link #timeStamp} all the other fields of
-     * <code>LoggingEvent</code> are filled when actually needed.
-     * <p>
-     *
-     * @param logger    The logger generating this event.
-     * @param timeStamp the timestamp of this logging event
-     * @param level     The level of this event.
-     * @param message   The message of this event.
-     * @param throwable The throwable of this event.
-     */
+    //构造器
     public LoggingEvent(String fqnOfCategoryClass, Category logger,
                         long timeStamp, Priority level, Object message,
                         Throwable throwable) {
@@ -199,22 +121,7 @@ public class LoggingEvent implements java.io.Serializable {
         this.timeStamp = timeStamp;
     }
 
-    /**
-     * Create new instance.
-     *
-     * @param fqnOfCategoryClass Fully qualified class name
-     *                           of Logger implementation.
-     * @param logger             The logger generating this event.
-     * @param timeStamp          the timestamp of this logging event
-     * @param level              The level of this event.
-     * @param message            The message of this event.
-     * @param threadName         thread name
-     * @param throwable          The throwable of this event.
-     * @param ndc                Nested diagnostic context
-     * @param info               Location info
-     * @param properties         MDC properties
-     * @since 1.2.15
-     */
+    //构造器
     public LoggingEvent(final String fqnOfCategoryClass,
                         final Category logger,
                         final long timeStamp,
@@ -262,42 +169,22 @@ public class LoggingEvent implements java.io.Serializable {
         return locationInfo;
     }
 
-    /**
-     * Return the level of this event. Use this form instead of directly
-     * accessing the <code>level</code> field.
-     */
+    //获取日志级别
     public Level getLevel() {
         return (Level) level;
     }
 
-    /**
-     * Return the name of the logger. Use this form instead of directly
-     * accessing the <code>categoryName</code> field.
-     */
+    //获取日志名
     public String getLoggerName() {
         return categoryName;
     }
 
-    /**
-     * Gets the logger of the event.
-     * Use should be restricted to cloning events.
-     *
-     * @since 1.2.15
-     */
+    //获取日志实例
     public Category getLogger() {
         return logger;
     }
 
-    /**
-     * Return the message for this logging event.
-     *
-     * <p>Before serialization, the returned object is the message
-     * passed by the user to generate the logging event. After
-     * serialization, the returned value equals the String form of the
-     * message possibly after object rendering.
-     *
-     * @since 1.1
-     */
+    //获取消息对象
     public Object getMessage() {
         if (message != null) {
             return message;
@@ -361,6 +248,7 @@ public class LoggingEvent implements java.io.Serializable {
         }
     }
 
+    //获取渲染后的消息
     public String getRenderedMessage() {
         if (renderedMessage == null && message != null) {
             if (message instanceof String) {
@@ -379,14 +267,12 @@ public class LoggingEvent implements java.io.Serializable {
         return renderedMessage;
     }
 
-    /**
-     * Returns the time when the application started, in milliseconds
-     * elapsed since 01.01.1970.
-     */
+    //获取开始时间
     public static long getStartTime() {
         return startTime;
     }
 
+    //获取线程名
     public String getThreadName() {
         if (threadName == null) {
             threadName = (Thread.currentThread()).getName();
@@ -394,15 +280,7 @@ public class LoggingEvent implements java.io.Serializable {
         return threadName;
     }
 
-    /**
-     * Returns the throwable information contained within this
-     * event. May be <code>null</code> if there is no such information.
-     *
-     * <p>Note that the {@link Throwable} object contained within a
-     * {@link ThrowableInformation} does not survive serialization.
-     *
-     * @since 1.1
-     */
+    //获取异常信息
     public ThrowableInformation getThrowableInformation() {
         return throwableInfo;
     }
@@ -462,6 +340,7 @@ public class LoggingEvent implements java.io.Serializable {
         }
     }
 
+    //读对象
     private void readObject(ObjectInputStream ois)
             throws java.io.IOException, ClassNotFoundException {
         ois.defaultReadObject();
@@ -473,6 +352,7 @@ public class LoggingEvent implements java.io.Serializable {
         }
     }
 
+    //写对象
     private void writeObject(ObjectOutputStream oos) throws java.io.IOException {
         // Aside from returning the current thread name the wgetThreadName
         // method sets the threadName variable.
@@ -565,43 +445,17 @@ public class LoggingEvent implements java.io.Serializable {
         return (locationInfo != null);
     }
 
-    /**
-     * Getter for the event's time stamp. The time stamp is calculated starting
-     * from 1970-01-01 GMT.
-     *
-     * @return timestamp
-     * @since 1.2.15
-     */
+    //获取时间戳
     public final long getTimeStamp() {
         return timeStamp;
     }
 
-    /**
-     * Returns the set of the key values in the properties
-     * for the event.
-     * <p>
-     * The returned set is unmodifiable by the caller.
-     * <p>
-     * Provided for compatibility with log4j 1.3
-     *
-     * @return Set an unmodifiable set of the property keys.
-     * @since 1.2.15
-     */
+    //获取所有属性名称
     public Set getPropertyKeySet() {
         return getProperties().keySet();
     }
 
-    /**
-     * Returns the set of properties
-     * for the event.
-     * <p>
-     * The returned set is unmodifiable by the caller.
-     * <p>
-     * Provided for compatibility with log4j 1.3
-     *
-     * @return Set an unmodifiable map of the properties.
-     * @since 1.2.15
-     */
+    //获取所有属性映射
     public Map getProperties() {
         getMDCCopy();
         Map properties;
@@ -625,15 +479,7 @@ public class LoggingEvent implements java.io.Serializable {
     }
 
 
-    /**
-     * This removes the specified MDC property from the event.
-     * Access to the MDC is not synchronized, so this
-     * method should only be called when it is known that
-     * no other threads are accessing the MDC.
-     *
-     * @param propName the property name to remove
-     * @since 1.2.16
-     */
+    //移除属性
     public Object removeProperty(String propName) {
         if (mdcCopy == null) {
             getMDCCopy();

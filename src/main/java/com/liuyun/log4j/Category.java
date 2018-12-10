@@ -289,27 +289,6 @@ public class Category implements AppenderAttachable {
         }
     }
 
-    public void info(Object message) {
-        if (repository.isDisabled(Level.INFO_INT)) {
-            return;
-        }
-
-        Level effectivelevel = this.getEffectiveLevel(); //实际的日志等级
-
-        if (Level.INFO.isGreaterOrEqual(effectivelevel)) {
-            forcedLog(FQCN, Level.INFO, message, null);
-        }
-    }
-
-    public void info(Object message, Throwable t) {
-        if (repository.isDisabled(Level.INFO_INT)) {
-            return;
-        }
-        if (Level.INFO.isGreaterOrEqual(this.getEffectiveLevel())) {
-            forcedLog(FQCN, Level.INFO, message, t);
-        }
-    }
-
     //是否可附着的
     public boolean isAttached(Appender appender) {
         if (appender == null || aai == null) {
@@ -474,6 +453,24 @@ public class Category implements AppenderAttachable {
         }
     }
 
+    public void info(Object message) {
+        if (repository.isDisabled(Level.INFO_INT)) {
+            return;
+        }
+        Level effectivelevel = this.getEffectiveLevel(); //实际的日志等级
+        if (Level.INFO.isGreaterOrEqual(effectivelevel)) {
+            forcedLog(FQCN, Level.INFO, message, null);
+        }
+    }
+
+    public void info(Object message, Throwable t) {
+        if (repository.isDisabled(Level.INFO_INT)) {
+            return;
+        }
+        if (Level.INFO.isGreaterOrEqual(this.getEffectiveLevel())) {
+            forcedLog(FQCN, Level.INFO, message, t);
+        }
+    }
 
     public void error(Object message) {
         if (repository.isDisabled(Level.ERROR_INT)) {

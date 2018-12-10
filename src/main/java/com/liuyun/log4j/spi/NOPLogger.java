@@ -4,7 +4,6 @@ import com.liuyun.log4j.appender.Appender;
 import com.liuyun.log4j.Level;
 import com.liuyun.log4j.Logger;
 import com.liuyun.log4j.Priority;
-
 import java.util.Enumeration;
 import java.util.ResourceBundle;
 import java.util.Vector;

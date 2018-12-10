@@ -13,6 +13,7 @@ public final class RootLogger extends Logger {
         setLevel(level);
     }
 
+    //获取日志级别
     public final Level getChainedLevel() {
         return level;
     }

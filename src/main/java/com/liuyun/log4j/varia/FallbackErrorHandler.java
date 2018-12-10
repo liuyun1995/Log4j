@@ -15,12 +15,10 @@ public class FallbackErrorHandler implements ErrorHandler {
     Appender primary;
     Vector loggers;
 
+    //构造器
     public FallbackErrorHandler() {}
 
-    /**
-     * <em>Adds</em> the logger passed as parameter to the list of
-     * loggers that we need to search for in case of appender failure.
-     */
+    //设置日志类
     public void setLogger(Logger logger) {
         LogLog.debug("FB: Adding logger [" + logger.getName() + "].");
         if (loggers == null) {
@@ -29,25 +27,16 @@ public class FallbackErrorHandler implements ErrorHandler {
         loggers.addElement(logger);
     }
 
-
-    /**
-     * No options to activate.
-     */
+    //激活操作
     public void activateOptions() {}
 
 
-    /**
-     * Prints the message and the stack trace of the exception on
-     * <code>System.err</code>.
-     */
+    //处理错误
     public void error(String message, Exception e, int errorCode) {
         error(message, e, errorCode, null);
     }
 
-    /**
-     * Prints the message and the stack trace of the exception on
-     * <code>System.err</code>.
-     */
+    //处理错误
     public void error(String message, Exception e, int errorCode, LoggingEvent event) {
         if (e instanceof InterruptedIOException) {
             Thread.currentThread().interrupt();
@@ -69,29 +58,16 @@ public class FallbackErrorHandler implements ErrorHandler {
         }
     }
 
+    //处理错误
+    public void error(String message) {}
 
-    /**
-     * Print a the error message passed as parameter on
-     * <code>System.err</code>.
-     */
-    public void error(String message) {
-        //if(firstTime) {
-        //LogLog.error(message);
-        //firstTime = false;
-        //}
-    }
-
-    /**
-     * The appender to which this error handler is attached.
-     */
+    //设置输出器
     public void setAppender(Appender primary) {
         LogLog.debug("FB: Setting primary appender to [" + primary.getName() + "].");
         this.primary = primary;
     }
 
-    /**
-     * Set the backup appender.
-     */
+    //设置备份输出器
     public void setBackupAppender(Appender backup) {
         LogLog.debug("FB: Setting backup appender to [" + backup.getName() + "].");
         this.backup = backup;

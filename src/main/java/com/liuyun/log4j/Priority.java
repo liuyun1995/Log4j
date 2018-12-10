@@ -1,11 +1,8 @@
 package com.liuyun.log4j;
 
 /**
- * @author 张明明  braveheart1115@163.com
- * @Package org.apache.log4j
- * @ClassName: Priority
- * @date 2016年5月9日 下午12:03:54
- * @Description:日志等级的优先类。
+ * 日志等级优先类
+ * @deprecated
  */
 public class Priority {
 

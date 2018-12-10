@@ -9,6 +9,7 @@ import com.liuyun.log4j.spi.DefaultRepositorySelector;
 import com.liuyun.log4j.spi.NOPLoggerRepository;
 import com.liuyun.log4j.helpers.Loader;
 import com.liuyun.log4j.helpers.LogLog;
+
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.util.Enumeration;
@@ -78,7 +79,7 @@ public class LogManager {
                 if (url == null) {
                     url = Loader.getResource(DEFAULT_CONFIGURATION_FILE);
                 }
-            //若log4j.configuration文件存在
+                //若log4j.configuration文件存在
             } else {
                 try {
                     //新建URL对象
@@ -129,8 +130,7 @@ public class LogManager {
 
     public static void setRepositorySelector(RepositorySelector selector, Object guard) throws IllegalArgumentException {
         if ((LogManager.guard != null) && (LogManager.guard != guard)) {
-            throw new IllegalArgumentException(
-                    "Attempted to reset the LoggerFactory without possessing the guard.");
+            throw new IllegalArgumentException("Attempted to reset the LoggerFactory without possessing the guard.");
         }
 
         if (selector == null) {

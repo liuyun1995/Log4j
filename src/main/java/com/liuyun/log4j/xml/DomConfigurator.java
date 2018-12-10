@@ -994,33 +994,26 @@ public class DomConfigurator implements Configurator {
         return subst(value, props);
     }
 
+    //解析操作
     private interface ParseAction {
-        /**
-         * 解析XML
-         *
-         * @param parser documentBuilder
-         * @return 解析后的XML文档
-         * @throws SAXException
-         * @throws IOException
-         */
+        //解析XML
         Document parse(final DocumentBuilder parser) throws SAXException, IOException;
     }
 
 }
 
 
+//xml文件扫描狗
 class XMLWatchdog extends FileWatchdog {
 
+    //构造器
     XMLWatchdog(String filename) {
         super(filename);
     }
 
-    /**
-     * Call {@link DomConfigurator#configure(String)} with the
-     * <code>filename</code> to reconfigure log4j.
-     */
+    //改变时执行
     public void doOnChange() {
-        new DomConfigurator().doConfigure(filename,
-                LogManager.getLoggerRepository());
+        new DomConfigurator().doConfigure(filename, LogManager.getLoggerRepository());
     }
+
 }

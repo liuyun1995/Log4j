@@ -25,14 +25,9 @@ public class Roller {
     static String host;
     static int port;
 
-    // Static class.
+    //构造器
     Roller() {}
 
-    /**
-     * Send a "RollOver" message to
-     * <code>ExternallyRolledFileAppender</code> on <code>host</code>
-     * and <code>port</code>.
-     */
     public static void main(String argv[]) {
 
         BasicConfigurator.configure();
@@ -48,8 +43,7 @@ public class Roller {
 
     static void usage(String msg) {
         System.err.println(msg);
-        System.err.println("Usage: java " + Roller.class.getName() +
-                "host_name port_number");
+        System.err.println("Usage: java " + Roller.class.getName() + "host_name port_number");
         System.exit(1);
     }
 
@@ -76,10 +70,10 @@ public class Roller {
                 System.exit(2);
             }
         } catch (IOException e) {
-            cat.error("Could not send roll signal on host " + host + " port " + port + " .",
-                    e);
+            cat.error("Could not send roll signal on host " + host + " port " + port + " .", e);
             System.exit(2);
         }
         System.exit(0);
     }
+
 }

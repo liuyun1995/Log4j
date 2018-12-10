@@ -1,19 +1,3 @@
-/*
- * Licensed to the Apache Software Foundation (ASF) under one or more
- * contributor license agreements.  See the NOTICE file distributed with
- * this work for additional information regarding copyright ownership.
- * The ASF licenses this file to You under the Apache License, Version 2.0
- * (the "License"); you may not use this file except in compliance with
- * the License.  You may obtain a copy of the License at
- *
- *      http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 package com.liuyun.log4j;
 
 import com.liuyun.log4j.spi.ThrowableRenderer;
@@ -25,40 +9,24 @@ import java.security.CodeSource;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- * Enhanced implementation of ThrowableRenderer.  Uses Throwable.getStackTrace
- * if running on JDK 1.4 or later and delegates to DefaultThrowableRenderer.render
- * on earlier virtual machines.
- *
- * @since 1.2.16
- */
+//增强异常渲染器
 public final class EnhancedThrowableRenderer implements ThrowableRenderer {
-    /**
-     * Throwable.getStackTrace() method.
-     */
-    private Method getStackTraceMethod;
-    /**
-     * StackTraceElement.getClassName() method.
-     */
-    private Method getClassNameMethod;
 
+    private Method getStackTraceMethod;    //Throwable.getStackTrace()方法
+    private Method getClassNameMethod;     //StackTraceElement.getClassName()
 
-    /**
-     * Construct new instance.
-     */
+    //构造器
     public EnhancedThrowableRenderer() {
         try {
             Class[] noArgs = null;
             getStackTraceMethod = Throwable.class.getMethod("getStackTrace", noArgs);
             Class ste = Class.forName("java.lang.StackTraceElement");
             getClassNameMethod = ste.getMethod("getClassName", noArgs);
-        } catch(Exception ex) {
+        } catch (Exception ex) {
         }
     }
 
-    /**
-     * {@inheritDoc}
-     */
+    //渲染方法
     public String[] doRender(final Throwable throwable) {
         if (getStackTraceMethod != null) {
             try {
@@ -67,22 +35,17 @@ public final class EnhancedThrowableRenderer implements ThrowableRenderer {
                 String[] lines = new String[elements.length + 1];
                 lines[0] = throwable.toString();
                 Map classMap = new HashMap();
-                for(int i = 0; i < elements.length; i++) {
-                    lines[i+1] = formatElement(elements[i], classMap);
+                for (int i = 0; i < elements.length; i++) {
+                    lines[i + 1] = formatElement(elements[i], classMap);
                 }
                 return lines;
-            } catch(Exception ex) {
+            } catch (Exception ex) {
             }
         }
         return DefaultThrowableRenderer.render(throwable);
     }
 
-    /**
-     * Format one element from stack trace.
-     * @param element element, may not be null.
-     * @param classMap map of class name to location.
-     * @return string representation of element.
-     */
+    //格式化元素
     private String formatElement(final Object element, final Map classMap) {
         StringBuffer buf = new StringBuffer("\tat ");
         buf.append(element);
@@ -129,7 +92,7 @@ public final class EnhancedThrowableRenderer implements ThrowableRenderer {
                             }
                         }
                     }
-                } catch(SecurityException ex) {
+                } catch (SecurityException ex) {
                 }
                 buf.append(':');
                 Package pkg = cls.getPackage();
@@ -142,27 +105,22 @@ public final class EnhancedThrowableRenderer implements ThrowableRenderer {
                 buf.append(']');
                 classMap.put(className, buf.substring(detailStart));
             }
-        } catch(Exception ex) {
+        } catch (Exception ex) {
         }
         return buf.toString();
     }
 
-    /**
-     * Find class given class name.
-     * @param className class name, may not be null.
-     * @return class, will not be null.
-     * @throws ClassNotFoundException thrown if class can not be found.
-     */
+    //根据名称寻找类型
     private Class findClass(final String className) throws ClassNotFoundException {
-     try {
-       return Thread.currentThread().getContextClassLoader().loadClass(className);
-     } catch (ClassNotFoundException e) {
-       try {
-         return Class.forName(className);
-       } catch (ClassNotFoundException e1) {
-          return getClass().getClassLoader().loadClass(className);
-      }
+        try {
+            return Thread.currentThread().getContextClassLoader().loadClass(className);
+        } catch (ClassNotFoundException e) {
+            try {
+                return Class.forName(className);
+            } catch (ClassNotFoundException e1) {
+                return getClass().getClassLoader().loadClass(className);
+            }
+        }
     }
-  }
 
 }
